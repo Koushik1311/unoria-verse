@@ -139,7 +139,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\project_directory\\unoria-verse\\src\\generated\\prisma",
+      "value": "/home/sophon/Workstation/project_directory/unoria-verse/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -148,12 +148,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\project_directory\\unoria-verse\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/sophon/Workstation/project_directory/unoria-verse/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -167,7 +167,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {

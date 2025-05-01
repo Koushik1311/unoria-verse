@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@layer utilities {
+  .bg-paper {
+    background-image: url("/paper-texture.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

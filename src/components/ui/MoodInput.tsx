@@ -3,27 +3,10 @@
 import { quoteStyles } from "@/utils/quoteStyles";
 import Image from "next/image";
 import { useState } from "react";
-import Sentiment from "sentiment";
-
-const sentiment = new Sentiment();
-
-export function getMood(text: string): string {
-  const result = sentiment.analyze(text);
-  const score = result.score;
-  console.log("Score", score);
-
-  if (score > 3) return "motivation";
-  if (score > 0) return "peaceful";
-  if (score === 0) return "neutral";
-  if (score < -4) return "angry";
-  if (score < -2) return "sad";
-  return "anxious"; // fallback
-}
 
 export default function MoodInput() {
   const [mood, setMood] = useState("");
   const style = quoteStyles.motivation;
-  console.log("Mood", getMood(mood));
 
   return (
     <>

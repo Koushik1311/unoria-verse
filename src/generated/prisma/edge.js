@@ -139,7 +139,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/sophon/Workstation/project_directory/unoria-verse/src/generated/prisma",
+      "value": "/mnt/sdb/Projects/personal/unoria-verse/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -153,12 +153,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/sophon/Workstation/project_directory/unoria-verse/prisma/schema.prisma",
+    "sourceFilePath": "/mnt/sdb/Projects/personal/unoria-verse/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.6.0",

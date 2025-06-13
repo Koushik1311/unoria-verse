@@ -77,7 +77,7 @@ export default function MoodInput() {
           value={mood}
           onChange={(e) => setMood(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Happy or Today is a great day for me."
+          placeholder="Type a mood or share how you're feeling today..."
           className={`w-full border border-[#d4a373] rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[#d4a373] bg-white bg-opacity-80 placeholder-gray-500 min-h-[100px] resize-none italic font-normal`}
         />
         {mood.trim() && (

@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export default function MoodInput() {
   const [mood, setMood] = useState("");
-  const style = quoteStyles.motivation;
+  const style = quoteStyles.motivated;
 
   return (
     <>

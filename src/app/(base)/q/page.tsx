@@ -15,7 +15,7 @@ export default function Home() {
           <p><strong><em>Where the fear has gone there will be nothing.</em></strong></p>
           <p><strong><em>Only I will remain.</em></strong></p>`}
         author="Frank Herbert, Dune"
-        type="motivation"
+        type="motivated"
         keyId="1"
       />
     </div>

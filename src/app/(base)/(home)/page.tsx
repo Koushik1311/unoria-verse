@@ -2,7 +2,7 @@ import MoodInput from "@/components/ui/MoodInput";
 import { quoteStyles } from "@/utils/quoteStyles";
 
 export default function Home() {
-  const style = quoteStyles.motivation;
+  const style = quoteStyles.motivated;
 
   return (
     <main

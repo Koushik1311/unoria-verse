@@ -1,37 +1,99 @@
 "use client";
 
-import { quoteStyles } from "@/utils/quoteStyles";
-import Image from "next/image";
-import { useState } from "react";
+import { ArrowUp } from "lucide-react";
+import { FormEvent, useState } from "react";
+import { toast } from "sonner";
+
+const allowedMoods = [
+  "happy",
+  "sad",
+  "angry",
+  "anxious",
+  "peaceful",
+  "confused",
+  "inspired",
+  "lonely",
+  "motivated",
+];
 
 export default function MoodInput() {
   const [mood, setMood] = useState("");
-  const style = quoteStyles.motivated;
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const input = mood.trim();
+    if (!input) {
+      toast.error("Please enter your mood or feelings");
+      return;
+    }
+
+    const words = input.split(/\s+/);
+
+    if (words.length === 1) {
+      const singleWord = words[0].toLowerCase();
+      if (allowedMoods.includes(singleWord)) {
+        setMood(singleWord);
+        console.log("Mood: ", mood);
+      } else {
+        toast.error("Invalid input");
+      }
+    }
+
+    if (words.length > 1) {
+      // TODO: Call the backend api
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e as unknown as FormEvent<HTMLFormElement>);
+    }
+  };
 
   return (
     <>
-      <input
-        type="text"
-        value={mood}
-        onChange={(e) => setMood(e.target.value)}
-        placeholder="Type something like 'I'm feeling motivated...'"
-        className={`w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white bg-opacity-80 placeholder-gray-500`}
-      />
+      <form onSubmit={handleSubmit} className="relative">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+          {allowedMoods.map((moodOption) => (
+            <button
+              key={moodOption}
+              type="button"
+              onClick={() => setMood(moodOption)}
+              className={`px-4 py-1.5 capitalize rounded-full text-sm font-medium transition-colors cursor-pointer
+              ${
+                mood === moodOption
+                  ? "bg-[#d4a373] text-white"
+                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+              }`}
+            >
+              {moodOption}
+            </button>
+          ))}
+        </div>
 
-      <p className={`${style.accent} text-sm italic`}>
-        Your emotions are valid. Let’s start with a feeling.
-      </p>
-
-      <div className="flex justify-center mt-8">
-        <Image
-          width={300}
-          height={300}
-          quality={100}
-          src={"/flowers/flowers.png"}
-          alt="decorative flower"
-          className="mx-auto mt-8 w-32 sm:w-40"
+        <textarea
+          value={mood}
+          onChange={(e) => setMood(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Happy or Today is a great day for me."
+          className={`w-full border border-[#d4a373] rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[#d4a373] bg-white bg-opacity-80 placeholder-gray-500 min-h-[100px] resize-none italic font-normal`}
         />
-      </div>
+        {mood.trim() && (
+          <div className="absolute right-1.5 bottom-3">
+            <button
+              type="submit"
+              className="bg-[#d4a373] text-white p-1.5 flex items-center justify-center rounded-full text-sm hover:bg-[#bc8d62] transition"
+            >
+              <ArrowUp size={18} />
+            </button>
+          </div>
+        )}
+      </form>
+      <p className={`text-[#D4A373] text-sm italic mt-4`}>
+        Your emotions are valid. Let&apos;s start with a feeling.
+      </p>
     </>
   );
 }

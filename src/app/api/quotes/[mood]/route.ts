@@ -1,25 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { Mood } from "@/generated/prisma";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { emotion: string } }
+  { params }: { params: { mood: string } }
 ) {
-  const { emotion } = params;
+  const { mood } = params;
 
-  if (!emotion) {
-    return NextResponse.json({ error: "Emotion is required" }, { status: 400 });
+  if (!mood) {
+    return NextResponse.json({ error: "Mood is required" }, { status: 400 });
+  }
+
+  // Validate if the mood is a valid enum value
+  if (!Object.values(Mood).includes(mood as Mood)) {
+    return NextResponse.json({ error: "Invalid mood value" }, { status: 400 });
   }
 
   try {
     const limit = 5;
 
-    // Get the total number of quotes with the given emotion
+    // Get the total number of quotes with the given mood
     const total = await prisma.quote.count({
       where: {
-        emotion: {
-          name: emotion,
-        },
+        mood: mood as Mood,
       },
     });
 
@@ -34,9 +38,7 @@ export async function GET(
     // Fech 5 random quotes starting from the random offset
     const quotes = await prisma.quote.findMany({
       where: {
-        emotion: {
-          name: emotion,
-        },
+        mood: mood as Mood,
       },
       skip: offset,
       take: limit,
@@ -51,6 +53,7 @@ export async function GET(
 
     return NextResponse.json(quotes, { status: 200 });
   } catch (error) {
+    console.error("Can not get quotes", error);
     return NextResponse.json(
       { error: "Failed to fetch quotes" },
       { status: 500 }

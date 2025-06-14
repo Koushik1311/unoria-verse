@@ -119,7 +119,7 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.QuoteScalarFieldEnum = {
   id: 'id',
-  text: 'text',
+  content: 'content',
   mood: 'mood',
   tone: 'tone',
   authorId: 'authorId',

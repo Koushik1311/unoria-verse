@@ -1047,7 +1047,7 @@ export namespace Prisma {
 
   export type QuoteMinAggregateOutputType = {
     id: string | null
-    text: string | null
+    content: string | null
     mood: $Enums.Mood | null
     tone: $Enums.Tone | null
     authorId: string | null
@@ -1057,7 +1057,7 @@ export namespace Prisma {
 
   export type QuoteMaxAggregateOutputType = {
     id: string | null
-    text: string | null
+    content: string | null
     mood: $Enums.Mood | null
     tone: $Enums.Tone | null
     authorId: string | null
@@ -1067,7 +1067,7 @@ export namespace Prisma {
 
   export type QuoteCountAggregateOutputType = {
     id: number
-    text: number
+    content: number
     mood: number
     tone: number
     authorId: number
@@ -1079,7 +1079,7 @@ export namespace Prisma {
 
   export type QuoteMinAggregateInputType = {
     id?: true
-    text?: true
+    content?: true
     mood?: true
     tone?: true
     authorId?: true
@@ -1089,7 +1089,7 @@ export namespace Prisma {
 
   export type QuoteMaxAggregateInputType = {
     id?: true
-    text?: true
+    content?: true
     mood?: true
     tone?: true
     authorId?: true
@@ -1099,7 +1099,7 @@ export namespace Prisma {
 
   export type QuoteCountAggregateInputType = {
     id?: true
-    text?: true
+    content?: true
     mood?: true
     tone?: true
     authorId?: true
@@ -1182,7 +1182,7 @@ export namespace Prisma {
 
   export type QuoteGroupByOutputType = {
     id: string
-    text: string
+    content: string
     mood: $Enums.Mood
     tone: $Enums.Tone
     authorId: string | null
@@ -1209,7 +1209,7 @@ export namespace Prisma {
 
   export type QuoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    text?: boolean
+    content?: boolean
     mood?: boolean
     tone?: boolean
     authorId?: boolean
@@ -1220,7 +1220,7 @@ export namespace Prisma {
 
   export type QuoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    text?: boolean
+    content?: boolean
     mood?: boolean
     tone?: boolean
     authorId?: boolean
@@ -1231,7 +1231,7 @@ export namespace Prisma {
 
   export type QuoteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    text?: boolean
+    content?: boolean
     mood?: boolean
     tone?: boolean
     authorId?: boolean
@@ -1242,7 +1242,7 @@ export namespace Prisma {
 
   export type QuoteSelectScalar = {
     id?: boolean
-    text?: boolean
+    content?: boolean
     mood?: boolean
     tone?: boolean
     authorId?: boolean
@@ -1250,7 +1250,7 @@ export namespace Prisma {
     isCustom?: boolean
   }
 
-  export type QuoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "mood" | "tone" | "authorId" | "createdAt" | "isCustom", ExtArgs["result"]["quote"]>
+  export type QuoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "mood" | "tone" | "authorId" | "createdAt" | "isCustom", ExtArgs["result"]["quote"]>
   export type QuoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | Quote$authorArgs<ExtArgs>
   }
@@ -1268,7 +1268,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      text: string
+      content: string
       mood: $Enums.Mood
       tone: $Enums.Tone
       authorId: string | null
@@ -1699,7 +1699,7 @@ export namespace Prisma {
    */
   interface QuoteFieldRefs {
     readonly id: FieldRef<"Quote", 'String'>
-    readonly text: FieldRef<"Quote", 'String'>
+    readonly content: FieldRef<"Quote", 'String'>
     readonly mood: FieldRef<"Quote", 'Mood'>
     readonly tone: FieldRef<"Quote", 'Tone'>
     readonly authorId: FieldRef<"Quote", 'String'>
@@ -3185,7 +3185,7 @@ export namespace Prisma {
 
   export const QuoteScalarFieldEnum: {
     id: 'id',
-    text: 'text',
+    content: 'content',
     mood: 'mood',
     tone: 'tone',
     authorId: 'authorId',
@@ -3318,7 +3318,7 @@ export namespace Prisma {
     OR?: QuoteWhereInput[]
     NOT?: QuoteWhereInput | QuoteWhereInput[]
     id?: StringFilter<"Quote"> | string
-    text?: StringFilter<"Quote"> | string
+    content?: StringFilter<"Quote"> | string
     mood?: EnumMoodFilter<"Quote"> | $Enums.Mood
     tone?: EnumToneFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableFilter<"Quote"> | string | null
@@ -3329,7 +3329,7 @@ export namespace Prisma {
 
   export type QuoteOrderByWithRelationInput = {
     id?: SortOrder
-    text?: SortOrder
+    content?: SortOrder
     mood?: SortOrder
     tone?: SortOrder
     authorId?: SortOrderInput | SortOrder
@@ -3340,21 +3340,21 @@ export namespace Prisma {
 
   export type QuoteWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    content?: string
     AND?: QuoteWhereInput | QuoteWhereInput[]
     OR?: QuoteWhereInput[]
     NOT?: QuoteWhereInput | QuoteWhereInput[]
-    text?: StringFilter<"Quote"> | string
     mood?: EnumMoodFilter<"Quote"> | $Enums.Mood
     tone?: EnumToneFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableFilter<"Quote"> | string | null
     createdAt?: DateTimeFilter<"Quote"> | Date | string
     isCustom?: BoolFilter<"Quote"> | boolean
     author?: XOR<AuthorNullableScalarRelationFilter, AuthorWhereInput> | null
-  }, "id">
+  }, "id" | "content">
 
   export type QuoteOrderByWithAggregationInput = {
     id?: SortOrder
-    text?: SortOrder
+    content?: SortOrder
     mood?: SortOrder
     tone?: SortOrder
     authorId?: SortOrderInput | SortOrder
@@ -3370,7 +3370,7 @@ export namespace Prisma {
     OR?: QuoteScalarWhereWithAggregatesInput[]
     NOT?: QuoteScalarWhereWithAggregatesInput | QuoteScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Quote"> | string
-    text?: StringWithAggregatesFilter<"Quote"> | string
+    content?: StringWithAggregatesFilter<"Quote"> | string
     mood?: EnumMoodWithAggregatesFilter<"Quote"> | $Enums.Mood
     tone?: EnumToneWithAggregatesFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableWithAggregatesFilter<"Quote"> | string | null
@@ -3420,7 +3420,7 @@ export namespace Prisma {
 
   export type QuoteCreateInput = {
     id?: string
-    text: string
+    content: string
     mood: $Enums.Mood
     tone: $Enums.Tone
     createdAt?: Date | string
@@ -3430,7 +3430,7 @@ export namespace Prisma {
 
   export type QuoteUncheckedCreateInput = {
     id?: string
-    text: string
+    content: string
     mood: $Enums.Mood
     tone: $Enums.Tone
     authorId?: string | null
@@ -3440,7 +3440,7 @@ export namespace Prisma {
 
   export type QuoteUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    text?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3450,7 +3450,7 @@ export namespace Prisma {
 
   export type QuoteUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    text?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     authorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -3460,7 +3460,7 @@ export namespace Prisma {
 
   export type QuoteCreateManyInput = {
     id?: string
-    text: string
+    content: string
     mood: $Enums.Mood
     tone: $Enums.Tone
     authorId?: string | null
@@ -3470,7 +3470,7 @@ export namespace Prisma {
 
   export type QuoteUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    text?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3479,7 +3479,7 @@ export namespace Prisma {
 
   export type QuoteUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    text?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     authorId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -3598,7 +3598,7 @@ export namespace Prisma {
 
   export type QuoteCountOrderByAggregateInput = {
     id?: SortOrder
-    text?: SortOrder
+    content?: SortOrder
     mood?: SortOrder
     tone?: SortOrder
     authorId?: SortOrder
@@ -3608,7 +3608,7 @@ export namespace Prisma {
 
   export type QuoteMaxOrderByAggregateInput = {
     id?: SortOrder
-    text?: SortOrder
+    content?: SortOrder
     mood?: SortOrder
     tone?: SortOrder
     authorId?: SortOrder
@@ -3618,7 +3618,7 @@ export namespace Prisma {
 
   export type QuoteMinOrderByAggregateInput = {
     id?: SortOrder
-    text?: SortOrder
+    content?: SortOrder
     mood?: SortOrder
     tone?: SortOrder
     authorId?: SortOrder
@@ -4005,7 +4005,7 @@ export namespace Prisma {
 
   export type QuoteCreateWithoutAuthorInput = {
     id?: string
-    text: string
+    content: string
     mood: $Enums.Mood
     tone: $Enums.Tone
     createdAt?: Date | string
@@ -4014,7 +4014,7 @@ export namespace Prisma {
 
   export type QuoteUncheckedCreateWithoutAuthorInput = {
     id?: string
-    text: string
+    content: string
     mood: $Enums.Mood
     tone: $Enums.Tone
     createdAt?: Date | string
@@ -4052,7 +4052,7 @@ export namespace Prisma {
     OR?: QuoteScalarWhereInput[]
     NOT?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
     id?: StringFilter<"Quote"> | string
-    text?: StringFilter<"Quote"> | string
+    content?: StringFilter<"Quote"> | string
     mood?: EnumMoodFilter<"Quote"> | $Enums.Mood
     tone?: EnumToneFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableFilter<"Quote"> | string | null
@@ -4062,7 +4062,7 @@ export namespace Prisma {
 
   export type QuoteCreateManyAuthorInput = {
     id?: string
-    text: string
+    content: string
     mood: $Enums.Mood
     tone: $Enums.Tone
     createdAt?: Date | string
@@ -4071,7 +4071,7 @@ export namespace Prisma {
 
   export type QuoteUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    text?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4080,7 +4080,7 @@ export namespace Prisma {
 
   export type QuoteUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    text?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4089,7 +4089,7 @@ export namespace Prisma {
 
   export type QuoteUncheckedUpdateManyWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
-    text?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

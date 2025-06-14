@@ -93,14 +93,11 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.QuoteScalarFieldEnum = {
   id: 'id',
   text: 'text',
+  mood: 'mood',
+  tone: 'tone',
+  authorId: 'authorId',
   createdAt: 'createdAt',
-  emotionId: 'emotionId',
-  authorId: 'authorId'
-};
-
-exports.Prisma.EmotionScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
+  isCustom: 'isCustom'
 };
 
 exports.Prisma.AuthorScalarFieldEnum = {
@@ -122,11 +119,34 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Mood = exports.$Enums.Mood = {
+  happy: 'happy',
+  sad: 'sad',
+  angry: 'angry',
+  anxious: 'anxious',
+  peaceful: 'peaceful',
+  confused: 'confused',
+  inspired: 'inspired',
+  lonely: 'lonely',
+  motivated: 'motivated'
+};
 
+exports.Tone = exports.$Enums.Tone = {
+  reflective: 'reflective',
+  uplifting: 'uplifting',
+  calming: 'calming',
+  empowering: 'empowering',
+  playful: 'playful',
+  comforting: 'comforting',
+  melancholic: 'melancholic',
+  romantic: 'romantic',
+  neutral: 'neutral',
+  spiritual: 'spiritual',
+  energetic: 'energetic'
+};
 
 exports.Prisma.ModelName = {
   Quote: 'Quote',
-  Emotion: 'Emotion',
   Author: 'Author'
 };
 /**
@@ -158,7 +178,8 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.6.0",
@@ -167,17 +188,16 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "value": "postgresql://neondb_owner:npg_HF0uiLgVRh9e@ep-wandering-resonance-a4utphpy-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Quote {\n  id        String   @id @default(cuid())\n  text      String   @db.Text\n  createdAt DateTime @default(now())\n\n  emotion   Emotion? @relation(fields: [emotionId], references: [id])\n  emotionId String?  @db.Char(25)\n\n  author   Author? @relation(fields: [authorId], references: [id])\n  authorId String? @db.Char(25)\n\n  @@index([emotionId])\n  @@index([authorId])\n}\n\nmodel Emotion {\n  id     String  @id @default(cuid()) @db.Char(25)\n  name   String  @unique @db.VarChar(100)\n  quotes Quote[]\n}\n\nmodel Author {\n  id     String  @id @default(cuid()) @db.Char(25)\n  name   String  @unique @db.VarChar(100)\n  quotes Quote[]\n}\n",
-  "inlineSchemaHash": "93f30b5623d2d4f04fdacbe29fdfd6239e356b7f7ca4cd64b837757a03c40810",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Mood {\n  happy\n  sad\n  angry\n  anxious\n  peaceful\n  confused\n  inspired\n  lonely\n  motivated\n}\n\nenum Tone {\n  reflective // introspective, deep, emotional\n  uplifting // positive, encouraging\n  calming // soothing, peaceful\n  empowering // motivational, strong\n  playful // humorous, light-hearted\n  comforting // warm, reassuring\n  melancholic // nostalgic, bittersweet\n  romantic // affectionate, love-centered\n  neutral // factual, plain\n  spiritual // mindful, existential\n  energetic // high-energy, enthusiastic\n}\n\nmodel Quote {\n  id        String   @id @default(cuid())\n  text      String\n  mood      Mood\n  tone      Tone\n  author    Author?  @relation(fields: [authorId], references: [id])\n  authorId  String?\n  createdAt DateTime @default(now())\n  isCustom  Boolean  @default(false)\n\n  @@index([mood, tone])\n}\n\nmodel Author {\n  id     String  @id @default(cuid())\n  name   String  @unique\n  quotes Quote[]\n}\n",
+  "inlineSchemaHash": "1a7bad7d67041068764cec82c4bb750e86cd3f90b7183f897630e4f563027a40",
   "copyEngine": true
 }
 
@@ -198,7 +218,7 @@ if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   config.isBundled = true
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Quote\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"text\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"Text\",[]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"emotion\",\"kind\":\"object\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Emotion\",\"nativeType\":null,\"relationName\":\"EmotionToQuote\",\"relationFromFields\":[\"emotionId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"emotionId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"Char\",[\"25\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"author\",\"kind\":\"object\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Author\",\"nativeType\":null,\"relationName\":\"AuthorToQuote\",\"relationFromFields\":[\"authorId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"authorId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"Char\",[\"25\"]],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Emotion\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"Char\",[\"25\"]],\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"100\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"quotes\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Quote\",\"nativeType\":null,\"relationName\":\"EmotionToQuote\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Author\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":[\"Char\",[\"25\"]],\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":[\"VarChar\",[\"100\"]],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"quotes\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Quote\",\"nativeType\":null,\"relationName\":\"AuthorToQuote\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Quote\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"text\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"mood\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Mood\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"tone\",\"kind\":\"enum\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Tone\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"author\",\"kind\":\"object\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Author\",\"nativeType\":null,\"relationName\":\"AuthorToQuote\",\"relationFromFields\":[\"authorId\"],\"relationToFields\":[\"id\"],\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"authorId\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":false,\"isUnique\":false,\"isId\":false,\"isReadOnly\":true,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"DateTime\",\"nativeType\":null,\"default\":{\"name\":\"now\",\"args\":[]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"isCustom\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"Boolean\",\"nativeType\":null,\"default\":false,\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false},\"Author\":{\"dbName\":null,\"schema\":null,\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":false,\"isId\":true,\"isReadOnly\":false,\"hasDefaultValue\":true,\"type\":\"String\",\"nativeType\":null,\"default\":{\"name\":\"cuid\",\"args\":[1]},\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"name\",\"kind\":\"scalar\",\"isList\":false,\"isRequired\":true,\"isUnique\":true,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"String\",\"nativeType\":null,\"isGenerated\":false,\"isUpdatedAt\":false},{\"name\":\"quotes\",\"kind\":\"object\",\"isList\":true,\"isRequired\":true,\"isUnique\":false,\"isId\":false,\"isReadOnly\":false,\"hasDefaultValue\":false,\"type\":\"Quote\",\"nativeType\":null,\"relationName\":\"AuthorToQuote\",\"relationFromFields\":[],\"relationToFields\":[],\"isGenerated\":false,\"isUpdatedAt\":false}],\"primaryKey\":null,\"uniqueFields\":[],\"uniqueIndexes\":[],\"isGenerated\":false}},\"enums\":{\"Mood\":{\"values\":[{\"name\":\"happy\",\"dbName\":null},{\"name\":\"sad\",\"dbName\":null},{\"name\":\"angry\",\"dbName\":null},{\"name\":\"anxious\",\"dbName\":null},{\"name\":\"peaceful\",\"dbName\":null},{\"name\":\"confused\",\"dbName\":null},{\"name\":\"inspired\",\"dbName\":null},{\"name\":\"lonely\",\"dbName\":null},{\"name\":\"motivated\",\"dbName\":null}],\"dbName\":null},\"Tone\":{\"values\":[{\"name\":\"reflective\",\"dbName\":null},{\"name\":\"uplifting\",\"dbName\":null},{\"name\":\"calming\",\"dbName\":null},{\"name\":\"empowering\",\"dbName\":null},{\"name\":\"playful\",\"dbName\":null},{\"name\":\"comforting\",\"dbName\":null},{\"name\":\"melancholic\",\"dbName\":null},{\"name\":\"romantic\",\"dbName\":null},{\"name\":\"neutral\",\"dbName\":null},{\"name\":\"spiritual\",\"dbName\":null},{\"name\":\"energetic\",\"dbName\":null}],\"dbName\":null}},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = undefined
 config.compilerWasm = undefined

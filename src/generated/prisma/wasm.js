@@ -120,14 +120,11 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.QuoteScalarFieldEnum = {
   id: 'id',
   text: 'text',
+  mood: 'mood',
+  tone: 'tone',
+  authorId: 'authorId',
   createdAt: 'createdAt',
-  emotionId: 'emotionId',
-  authorId: 'authorId'
-};
-
-exports.Prisma.EmotionScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
+  isCustom: 'isCustom'
 };
 
 exports.Prisma.AuthorScalarFieldEnum = {
@@ -149,11 +146,34 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Mood = exports.$Enums.Mood = {
+  happy: 'happy',
+  sad: 'sad',
+  angry: 'angry',
+  anxious: 'anxious',
+  peaceful: 'peaceful',
+  confused: 'confused',
+  inspired: 'inspired',
+  lonely: 'lonely',
+  motivated: 'motivated'
+};
 
+exports.Tone = exports.$Enums.Tone = {
+  reflective: 'reflective',
+  uplifting: 'uplifting',
+  calming: 'calming',
+  empowering: 'empowering',
+  playful: 'playful',
+  comforting: 'comforting',
+  melancholic: 'melancholic',
+  romantic: 'romantic',
+  neutral: 'neutral',
+  spiritual: 'spiritual',
+  energetic: 'energetic'
+};
 
 exports.Prisma.ModelName = {
   Quote: 'Quote',
-  Emotion: 'Emotion',
   Author: 'Author'
 };
 

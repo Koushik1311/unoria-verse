@@ -1,7 +1,6 @@
 "use client";
 
 import { quoteStyles } from "@/utils/quoteStyles";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import DOMPurify from "isomorphic-dompurify";
 
@@ -18,7 +17,7 @@ export default function QuoteCard({
   type,
   keyId,
 }: QuoteCardProps) {
-  const style = quoteStyles[type] || quoteStyles.motivation;
+  const style = quoteStyles[type] || quoteStyles.motivated;
   const sanitized = DOMPurify.sanitize(quote);
   const lines = sanitized
     .split(/<\/p>/i)
@@ -81,33 +80,11 @@ export default function QuoteCard({
           </motion.div>
 
           <motion.p
-            className={`text-xs mt-4 tracking-widest uppercase font-light ${style.accent}`}
+            className={`text-xs mt-6 tracking-widest uppercase font-light ${style.accent}`}
             variants={lineVariants}
           >
-            {author}
+            — {author}
           </motion.p>
-
-          <motion.div
-            variants={{
-              initial: { opacity: 0, scale: 0.9 },
-              animate: { opacity: 1, scale: 1 },
-              exit: { opacity: 0, scale: 0.9 },
-            }}
-            transition={{
-              delay: 0.6,
-              duration: 1,
-              ease: "easeOut",
-            }}
-          >
-            <Image
-              width={300}
-              height={300}
-              quality={100}
-              src={style.flower}
-              alt="flower"
-              className="mx-auto mt-8 w-32 sm:w-40"
-            />
-          </motion.div>
         </motion.div>
       </AnimatePresence>
     </main>

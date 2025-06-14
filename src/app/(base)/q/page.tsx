@@ -4,16 +4,16 @@ export default function Home() {
   return (
     <div>
       <QuoteCard
-        quote={`<p><em>I must not fear.</em></p>
-          <p><strong><em>Fear is the mind-killer.</em></strong></p>
-          <p><strong><em>Fear is the little-death that brings total obliteration.</em></strong></p>
+        quote={`<p>I must not fear.</p>
+          <p><strong>Fear is the mind-killer.</strong></p>
+          <p><strong>Fear is the little-death that brings total obliteration.</strong></p>
           
-          <p><em>I will face my fear.</em></p>
-          <p><em>I will permit it to pass over me and through me.</em></p>
+          <p>I will face my fear.</p>
+          <p>I will permit it to pass over me and through me.</p>
           
-          <p><strong><em>And when it has gone past I will turn the inner eye to see its path.</em></strong></p>
-          <p><strong><em>Where the fear has gone there will be nothing.</em></strong></p>
-          <p><strong><em>Only I will remain.</em></strong></p>`}
+          <p><strong>And when it has gone past I will turn the inner eye to see its path.</strong></p>
+          <p><strong>Where the fear has gone there will be nothing.</strong></p>
+          <p><strong>Only I will remain.</strong></p>`}
         author="Frank Herbert, Dune"
         type="motivated"
         keyId="1"

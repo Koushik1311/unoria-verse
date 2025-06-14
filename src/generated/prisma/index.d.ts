@@ -19,15 +19,55 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Quote = $Result.DefaultSelection<Prisma.$QuotePayload>
 /**
- * Model Emotion
- * 
- */
-export type Emotion = $Result.DefaultSelection<Prisma.$EmotionPayload>
-/**
  * Model Author
  * 
  */
 export type Author = $Result.DefaultSelection<Prisma.$AuthorPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const Mood: {
+  happy: 'happy',
+  sad: 'sad',
+  angry: 'angry',
+  anxious: 'anxious',
+  peaceful: 'peaceful',
+  confused: 'confused',
+  inspired: 'inspired',
+  lonely: 'lonely',
+  motivated: 'motivated'
+};
+
+export type Mood = (typeof Mood)[keyof typeof Mood]
+
+
+export const Tone: {
+  reflective: 'reflective',
+  uplifting: 'uplifting',
+  calming: 'calming',
+  empowering: 'empowering',
+  playful: 'playful',
+  comforting: 'comforting',
+  melancholic: 'melancholic',
+  romantic: 'romantic',
+  neutral: 'neutral',
+  spiritual: 'spiritual',
+  energetic: 'energetic'
+};
+
+export type Tone = (typeof Tone)[keyof typeof Tone]
+
+}
+
+export type Mood = $Enums.Mood
+
+export const Mood: typeof $Enums.Mood
+
+export type Tone = $Enums.Tone
+
+export const Tone: typeof $Enums.Tone
 
 /**
  * ##  Prisma Client ʲˢ
@@ -163,16 +203,6 @@ export class PrismaClient<
     * ```
     */
   get quote(): Prisma.QuoteDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.emotion`: Exposes CRUD operations for the **Emotion** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Emotions
-    * const emotions = await prisma.emotion.findMany()
-    * ```
-    */
-  get emotion(): Prisma.EmotionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.author`: Exposes CRUD operations for the **Author** model.
@@ -624,7 +654,6 @@ export namespace Prisma {
 
   export const ModelName: {
     Quote: 'Quote',
-    Emotion: 'Emotion',
     Author: 'Author'
   };
 
@@ -644,7 +673,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "quote" | "emotion" | "author"
+      modelProps: "quote" | "author"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -719,80 +748,6 @@ export namespace Prisma {
           count: {
             args: Prisma.QuoteCountArgs<ExtArgs>
             result: $Utils.Optional<QuoteCountAggregateOutputType> | number
-          }
-        }
-      }
-      Emotion: {
-        payload: Prisma.$EmotionPayload<ExtArgs>
-        fields: Prisma.EmotionFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.EmotionFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.EmotionFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload>
-          }
-          findFirst: {
-            args: Prisma.EmotionFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.EmotionFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload>
-          }
-          findMany: {
-            args: Prisma.EmotionFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload>[]
-          }
-          create: {
-            args: Prisma.EmotionCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload>
-          }
-          createMany: {
-            args: Prisma.EmotionCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.EmotionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload>[]
-          }
-          delete: {
-            args: Prisma.EmotionDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload>
-          }
-          update: {
-            args: Prisma.EmotionUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload>
-          }
-          deleteMany: {
-            args: Prisma.EmotionDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.EmotionUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.EmotionUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload>[]
-          }
-          upsert: {
-            args: Prisma.EmotionUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$EmotionPayload>
-          }
-          aggregate: {
-            args: Prisma.EmotionAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateEmotion>
-          }
-          groupBy: {
-            args: Prisma.EmotionGroupByArgs<ExtArgs>
-            result: $Utils.Optional<EmotionGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.EmotionCountArgs<ExtArgs>
-            result: $Utils.Optional<EmotionCountAggregateOutputType> | number
           }
         }
       }
@@ -955,7 +910,6 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     quote?: QuoteOmit
-    emotion?: EmotionOmit
     author?: AuthorOmit
   }
 
@@ -1047,37 +1001,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type EmotionCountOutputType
-   */
-
-  export type EmotionCountOutputType = {
-    quotes: number
-  }
-
-  export type EmotionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    quotes?: boolean | EmotionCountOutputTypeCountQuotesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * EmotionCountOutputType without action
-   */
-  export type EmotionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EmotionCountOutputType
-     */
-    select?: EmotionCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * EmotionCountOutputType without action
-   */
-  export type EmotionCountOutputTypeCountQuotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: QuoteWhereInput
-  }
-
-
-  /**
    * Count Type AuthorCountOutputType
    */
 
@@ -1125,25 +1048,31 @@ export namespace Prisma {
   export type QuoteMinAggregateOutputType = {
     id: string | null
     text: string | null
-    createdAt: Date | null
-    emotionId: string | null
+    mood: $Enums.Mood | null
+    tone: $Enums.Tone | null
     authorId: string | null
+    createdAt: Date | null
+    isCustom: boolean | null
   }
 
   export type QuoteMaxAggregateOutputType = {
     id: string | null
     text: string | null
-    createdAt: Date | null
-    emotionId: string | null
+    mood: $Enums.Mood | null
+    tone: $Enums.Tone | null
     authorId: string | null
+    createdAt: Date | null
+    isCustom: boolean | null
   }
 
   export type QuoteCountAggregateOutputType = {
     id: number
     text: number
-    createdAt: number
-    emotionId: number
+    mood: number
+    tone: number
     authorId: number
+    createdAt: number
+    isCustom: number
     _all: number
   }
 
@@ -1151,25 +1080,31 @@ export namespace Prisma {
   export type QuoteMinAggregateInputType = {
     id?: true
     text?: true
-    createdAt?: true
-    emotionId?: true
+    mood?: true
+    tone?: true
     authorId?: true
+    createdAt?: true
+    isCustom?: true
   }
 
   export type QuoteMaxAggregateInputType = {
     id?: true
     text?: true
-    createdAt?: true
-    emotionId?: true
+    mood?: true
+    tone?: true
     authorId?: true
+    createdAt?: true
+    isCustom?: true
   }
 
   export type QuoteCountAggregateInputType = {
     id?: true
     text?: true
-    createdAt?: true
-    emotionId?: true
+    mood?: true
+    tone?: true
     authorId?: true
+    createdAt?: true
+    isCustom?: true
     _all?: true
   }
 
@@ -1248,9 +1183,11 @@ export namespace Prisma {
   export type QuoteGroupByOutputType = {
     id: string
     text: string
-    createdAt: Date
-    emotionId: string | null
+    mood: $Enums.Mood
+    tone: $Enums.Tone
     authorId: string | null
+    createdAt: Date
+    isCustom: boolean
     _count: QuoteCountAggregateOutputType | null
     _min: QuoteMinAggregateOutputType | null
     _max: QuoteMaxAggregateOutputType | null
@@ -1273,67 +1210,70 @@ export namespace Prisma {
   export type QuoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     text?: boolean
-    createdAt?: boolean
-    emotionId?: boolean
+    mood?: boolean
+    tone?: boolean
     authorId?: boolean
-    emotion?: boolean | Quote$emotionArgs<ExtArgs>
+    createdAt?: boolean
+    isCustom?: boolean
     author?: boolean | Quote$authorArgs<ExtArgs>
   }, ExtArgs["result"]["quote"]>
 
   export type QuoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     text?: boolean
-    createdAt?: boolean
-    emotionId?: boolean
+    mood?: boolean
+    tone?: boolean
     authorId?: boolean
-    emotion?: boolean | Quote$emotionArgs<ExtArgs>
+    createdAt?: boolean
+    isCustom?: boolean
     author?: boolean | Quote$authorArgs<ExtArgs>
   }, ExtArgs["result"]["quote"]>
 
   export type QuoteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     text?: boolean
-    createdAt?: boolean
-    emotionId?: boolean
+    mood?: boolean
+    tone?: boolean
     authorId?: boolean
-    emotion?: boolean | Quote$emotionArgs<ExtArgs>
+    createdAt?: boolean
+    isCustom?: boolean
     author?: boolean | Quote$authorArgs<ExtArgs>
   }, ExtArgs["result"]["quote"]>
 
   export type QuoteSelectScalar = {
     id?: boolean
     text?: boolean
-    createdAt?: boolean
-    emotionId?: boolean
+    mood?: boolean
+    tone?: boolean
     authorId?: boolean
+    createdAt?: boolean
+    isCustom?: boolean
   }
 
-  export type QuoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "createdAt" | "emotionId" | "authorId", ExtArgs["result"]["quote"]>
+  export type QuoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "text" | "mood" | "tone" | "authorId" | "createdAt" | "isCustom", ExtArgs["result"]["quote"]>
   export type QuoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    emotion?: boolean | Quote$emotionArgs<ExtArgs>
     author?: boolean | Quote$authorArgs<ExtArgs>
   }
   export type QuoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    emotion?: boolean | Quote$emotionArgs<ExtArgs>
     author?: boolean | Quote$authorArgs<ExtArgs>
   }
   export type QuoteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    emotion?: boolean | Quote$emotionArgs<ExtArgs>
     author?: boolean | Quote$authorArgs<ExtArgs>
   }
 
   export type $QuotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Quote"
     objects: {
-      emotion: Prisma.$EmotionPayload<ExtArgs> | null
       author: Prisma.$AuthorPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       text: string
-      createdAt: Date
-      emotionId: string | null
+      mood: $Enums.Mood
+      tone: $Enums.Tone
       authorId: string | null
+      createdAt: Date
+      isCustom: boolean
     }, ExtArgs["result"]["quote"]>
     composites: {}
   }
@@ -1728,7 +1668,6 @@ export namespace Prisma {
    */
   export interface Prisma__QuoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    emotion<T extends Quote$emotionArgs<ExtArgs> = {}>(args?: Subset<T, Quote$emotionArgs<ExtArgs>>): Prisma__EmotionClient<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     author<T extends Quote$authorArgs<ExtArgs> = {}>(args?: Subset<T, Quote$authorArgs<ExtArgs>>): Prisma__AuthorClient<$Result.GetResult<Prisma.$AuthorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1761,9 +1700,11 @@ export namespace Prisma {
   interface QuoteFieldRefs {
     readonly id: FieldRef<"Quote", 'String'>
     readonly text: FieldRef<"Quote", 'String'>
-    readonly createdAt: FieldRef<"Quote", 'DateTime'>
-    readonly emotionId: FieldRef<"Quote", 'String'>
+    readonly mood: FieldRef<"Quote", 'Mood'>
+    readonly tone: FieldRef<"Quote", 'Tone'>
     readonly authorId: FieldRef<"Quote", 'String'>
+    readonly createdAt: FieldRef<"Quote", 'DateTime'>
+    readonly isCustom: FieldRef<"Quote", 'Boolean'>
   }
     
 
@@ -2160,25 +2101,6 @@ export namespace Prisma {
   }
 
   /**
-   * Quote.emotion
-   */
-  export type Quote$emotionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
-    where?: EmotionWhereInput
-  }
-
-  /**
    * Quote.author
    */
   export type Quote$authorArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2213,1037 +2135,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: QuoteInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model Emotion
-   */
-
-  export type AggregateEmotion = {
-    _count: EmotionCountAggregateOutputType | null
-    _min: EmotionMinAggregateOutputType | null
-    _max: EmotionMaxAggregateOutputType | null
-  }
-
-  export type EmotionMinAggregateOutputType = {
-    id: string | null
-    name: string | null
-  }
-
-  export type EmotionMaxAggregateOutputType = {
-    id: string | null
-    name: string | null
-  }
-
-  export type EmotionCountAggregateOutputType = {
-    id: number
-    name: number
-    _all: number
-  }
-
-
-  export type EmotionMinAggregateInputType = {
-    id?: true
-    name?: true
-  }
-
-  export type EmotionMaxAggregateInputType = {
-    id?: true
-    name?: true
-  }
-
-  export type EmotionCountAggregateInputType = {
-    id?: true
-    name?: true
-    _all?: true
-  }
-
-  export type EmotionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Emotion to aggregate.
-     */
-    where?: EmotionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Emotions to fetch.
-     */
-    orderBy?: EmotionOrderByWithRelationInput | EmotionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: EmotionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Emotions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Emotions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned Emotions
-    **/
-    _count?: true | EmotionCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: EmotionMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: EmotionMaxAggregateInputType
-  }
-
-  export type GetEmotionAggregateType<T extends EmotionAggregateArgs> = {
-        [P in keyof T & keyof AggregateEmotion]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateEmotion[P]>
-      : GetScalarType<T[P], AggregateEmotion[P]>
-  }
-
-
-
-
-  export type EmotionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: EmotionWhereInput
-    orderBy?: EmotionOrderByWithAggregationInput | EmotionOrderByWithAggregationInput[]
-    by: EmotionScalarFieldEnum[] | EmotionScalarFieldEnum
-    having?: EmotionScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: EmotionCountAggregateInputType | true
-    _min?: EmotionMinAggregateInputType
-    _max?: EmotionMaxAggregateInputType
-  }
-
-  export type EmotionGroupByOutputType = {
-    id: string
-    name: string
-    _count: EmotionCountAggregateOutputType | null
-    _min: EmotionMinAggregateOutputType | null
-    _max: EmotionMaxAggregateOutputType | null
-  }
-
-  type GetEmotionGroupByPayload<T extends EmotionGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<EmotionGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof EmotionGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], EmotionGroupByOutputType[P]>
-            : GetScalarType<T[P], EmotionGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type EmotionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-    quotes?: boolean | Emotion$quotesArgs<ExtArgs>
-    _count?: boolean | EmotionCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["emotion"]>
-
-  export type EmotionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["emotion"]>
-
-  export type EmotionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    name?: boolean
-  }, ExtArgs["result"]["emotion"]>
-
-  export type EmotionSelectScalar = {
-    id?: boolean
-    name?: boolean
-  }
-
-  export type EmotionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name", ExtArgs["result"]["emotion"]>
-  export type EmotionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    quotes?: boolean | Emotion$quotesArgs<ExtArgs>
-    _count?: boolean | EmotionCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type EmotionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type EmotionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $EmotionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "Emotion"
-    objects: {
-      quotes: Prisma.$QuotePayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      name: string
-    }, ExtArgs["result"]["emotion"]>
-    composites: {}
-  }
-
-  type EmotionGetPayload<S extends boolean | null | undefined | EmotionDefaultArgs> = $Result.GetResult<Prisma.$EmotionPayload, S>
-
-  type EmotionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<EmotionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: EmotionCountAggregateInputType | true
-    }
-
-  export interface EmotionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Emotion'], meta: { name: 'Emotion' } }
-    /**
-     * Find zero or one Emotion that matches the filter.
-     * @param {EmotionFindUniqueArgs} args - Arguments to find a Emotion
-     * @example
-     * // Get one Emotion
-     * const emotion = await prisma.emotion.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends EmotionFindUniqueArgs>(args: SelectSubset<T, EmotionFindUniqueArgs<ExtArgs>>): Prisma__EmotionClient<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Emotion that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {EmotionFindUniqueOrThrowArgs} args - Arguments to find a Emotion
-     * @example
-     * // Get one Emotion
-     * const emotion = await prisma.emotion.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends EmotionFindUniqueOrThrowArgs>(args: SelectSubset<T, EmotionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__EmotionClient<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Emotion that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmotionFindFirstArgs} args - Arguments to find a Emotion
-     * @example
-     * // Get one Emotion
-     * const emotion = await prisma.emotion.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends EmotionFindFirstArgs>(args?: SelectSubset<T, EmotionFindFirstArgs<ExtArgs>>): Prisma__EmotionClient<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Emotion that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmotionFindFirstOrThrowArgs} args - Arguments to find a Emotion
-     * @example
-     * // Get one Emotion
-     * const emotion = await prisma.emotion.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends EmotionFindFirstOrThrowArgs>(args?: SelectSubset<T, EmotionFindFirstOrThrowArgs<ExtArgs>>): Prisma__EmotionClient<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Emotions that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmotionFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Emotions
-     * const emotions = await prisma.emotion.findMany()
-     * 
-     * // Get first 10 Emotions
-     * const emotions = await prisma.emotion.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const emotionWithIdOnly = await prisma.emotion.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends EmotionFindManyArgs>(args?: SelectSubset<T, EmotionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Emotion.
-     * @param {EmotionCreateArgs} args - Arguments to create a Emotion.
-     * @example
-     * // Create one Emotion
-     * const Emotion = await prisma.emotion.create({
-     *   data: {
-     *     // ... data to create a Emotion
-     *   }
-     * })
-     * 
-     */
-    create<T extends EmotionCreateArgs>(args: SelectSubset<T, EmotionCreateArgs<ExtArgs>>): Prisma__EmotionClient<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Emotions.
-     * @param {EmotionCreateManyArgs} args - Arguments to create many Emotions.
-     * @example
-     * // Create many Emotions
-     * const emotion = await prisma.emotion.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends EmotionCreateManyArgs>(args?: SelectSubset<T, EmotionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Emotions and returns the data saved in the database.
-     * @param {EmotionCreateManyAndReturnArgs} args - Arguments to create many Emotions.
-     * @example
-     * // Create many Emotions
-     * const emotion = await prisma.emotion.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Emotions and only return the `id`
-     * const emotionWithIdOnly = await prisma.emotion.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends EmotionCreateManyAndReturnArgs>(args?: SelectSubset<T, EmotionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Emotion.
-     * @param {EmotionDeleteArgs} args - Arguments to delete one Emotion.
-     * @example
-     * // Delete one Emotion
-     * const Emotion = await prisma.emotion.delete({
-     *   where: {
-     *     // ... filter to delete one Emotion
-     *   }
-     * })
-     * 
-     */
-    delete<T extends EmotionDeleteArgs>(args: SelectSubset<T, EmotionDeleteArgs<ExtArgs>>): Prisma__EmotionClient<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Emotion.
-     * @param {EmotionUpdateArgs} args - Arguments to update one Emotion.
-     * @example
-     * // Update one Emotion
-     * const emotion = await prisma.emotion.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends EmotionUpdateArgs>(args: SelectSubset<T, EmotionUpdateArgs<ExtArgs>>): Prisma__EmotionClient<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Emotions.
-     * @param {EmotionDeleteManyArgs} args - Arguments to filter Emotions to delete.
-     * @example
-     * // Delete a few Emotions
-     * const { count } = await prisma.emotion.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends EmotionDeleteManyArgs>(args?: SelectSubset<T, EmotionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Emotions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmotionUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Emotions
-     * const emotion = await prisma.emotion.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends EmotionUpdateManyArgs>(args: SelectSubset<T, EmotionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Emotions and returns the data updated in the database.
-     * @param {EmotionUpdateManyAndReturnArgs} args - Arguments to update many Emotions.
-     * @example
-     * // Update many Emotions
-     * const emotion = await prisma.emotion.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Emotions and only return the `id`
-     * const emotionWithIdOnly = await prisma.emotion.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends EmotionUpdateManyAndReturnArgs>(args: SelectSubset<T, EmotionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Emotion.
-     * @param {EmotionUpsertArgs} args - Arguments to update or create a Emotion.
-     * @example
-     * // Update or create a Emotion
-     * const emotion = await prisma.emotion.upsert({
-     *   create: {
-     *     // ... data to create a Emotion
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Emotion we want to update
-     *   }
-     * })
-     */
-    upsert<T extends EmotionUpsertArgs>(args: SelectSubset<T, EmotionUpsertArgs<ExtArgs>>): Prisma__EmotionClient<$Result.GetResult<Prisma.$EmotionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Emotions.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmotionCountArgs} args - Arguments to filter Emotions to count.
-     * @example
-     * // Count the number of Emotions
-     * const count = await prisma.emotion.count({
-     *   where: {
-     *     // ... the filter for the Emotions we want to count
-     *   }
-     * })
-    **/
-    count<T extends EmotionCountArgs>(
-      args?: Subset<T, EmotionCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], EmotionCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Emotion.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmotionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends EmotionAggregateArgs>(args: Subset<T, EmotionAggregateArgs>): Prisma.PrismaPromise<GetEmotionAggregateType<T>>
-
-    /**
-     * Group by Emotion.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {EmotionGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends EmotionGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: EmotionGroupByArgs['orderBy'] }
-        : { orderBy?: EmotionGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, EmotionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetEmotionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the Emotion model
-   */
-  readonly fields: EmotionFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for Emotion.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__EmotionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    quotes<T extends Emotion$quotesArgs<ExtArgs> = {}>(args?: Subset<T, Emotion$quotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the Emotion model
-   */
-  interface EmotionFieldRefs {
-    readonly id: FieldRef<"Emotion", 'String'>
-    readonly name: FieldRef<"Emotion", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * Emotion findUnique
-   */
-  export type EmotionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
-    /**
-     * Filter, which Emotion to fetch.
-     */
-    where: EmotionWhereUniqueInput
-  }
-
-  /**
-   * Emotion findUniqueOrThrow
-   */
-  export type EmotionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
-    /**
-     * Filter, which Emotion to fetch.
-     */
-    where: EmotionWhereUniqueInput
-  }
-
-  /**
-   * Emotion findFirst
-   */
-  export type EmotionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
-    /**
-     * Filter, which Emotion to fetch.
-     */
-    where?: EmotionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Emotions to fetch.
-     */
-    orderBy?: EmotionOrderByWithRelationInput | EmotionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Emotions.
-     */
-    cursor?: EmotionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Emotions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Emotions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Emotions.
-     */
-    distinct?: EmotionScalarFieldEnum | EmotionScalarFieldEnum[]
-  }
-
-  /**
-   * Emotion findFirstOrThrow
-   */
-  export type EmotionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
-    /**
-     * Filter, which Emotion to fetch.
-     */
-    where?: EmotionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Emotions to fetch.
-     */
-    orderBy?: EmotionOrderByWithRelationInput | EmotionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for Emotions.
-     */
-    cursor?: EmotionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Emotions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Emotions.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of Emotions.
-     */
-    distinct?: EmotionScalarFieldEnum | EmotionScalarFieldEnum[]
-  }
-
-  /**
-   * Emotion findMany
-   */
-  export type EmotionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
-    /**
-     * Filter, which Emotions to fetch.
-     */
-    where?: EmotionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of Emotions to fetch.
-     */
-    orderBy?: EmotionOrderByWithRelationInput | EmotionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing Emotions.
-     */
-    cursor?: EmotionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` Emotions from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` Emotions.
-     */
-    skip?: number
-    distinct?: EmotionScalarFieldEnum | EmotionScalarFieldEnum[]
-  }
-
-  /**
-   * Emotion create
-   */
-  export type EmotionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
-    /**
-     * The data needed to create a Emotion.
-     */
-    data: XOR<EmotionCreateInput, EmotionUncheckedCreateInput>
-  }
-
-  /**
-   * Emotion createMany
-   */
-  export type EmotionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many Emotions.
-     */
-    data: EmotionCreateManyInput | EmotionCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Emotion createManyAndReturn
-   */
-  export type EmotionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * The data used to create many Emotions.
-     */
-    data: EmotionCreateManyInput | EmotionCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * Emotion update
-   */
-  export type EmotionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
-    /**
-     * The data needed to update a Emotion.
-     */
-    data: XOR<EmotionUpdateInput, EmotionUncheckedUpdateInput>
-    /**
-     * Choose, which Emotion to update.
-     */
-    where: EmotionWhereUniqueInput
-  }
-
-  /**
-   * Emotion updateMany
-   */
-  export type EmotionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Emotions.
-     */
-    data: XOR<EmotionUpdateManyMutationInput, EmotionUncheckedUpdateManyInput>
-    /**
-     * Filter which Emotions to update
-     */
-    where?: EmotionWhereInput
-    /**
-     * Limit how many Emotions to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Emotion updateManyAndReturn
-   */
-  export type EmotionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * The data used to update Emotions.
-     */
-    data: XOR<EmotionUpdateManyMutationInput, EmotionUncheckedUpdateManyInput>
-    /**
-     * Filter which Emotions to update
-     */
-    where?: EmotionWhereInput
-    /**
-     * Limit how many Emotions to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Emotion upsert
-   */
-  export type EmotionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
-    /**
-     * The filter to search for the Emotion to update in case it exists.
-     */
-    where: EmotionWhereUniqueInput
-    /**
-     * In case the Emotion found by the `where` argument doesn't exist, create a new Emotion with this data.
-     */
-    create: XOR<EmotionCreateInput, EmotionUncheckedCreateInput>
-    /**
-     * In case the Emotion was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<EmotionUpdateInput, EmotionUncheckedUpdateInput>
-  }
-
-  /**
-   * Emotion delete
-   */
-  export type EmotionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
-    /**
-     * Filter which Emotion to delete.
-     */
-    where: EmotionWhereUniqueInput
-  }
-
-  /**
-   * Emotion deleteMany
-   */
-  export type EmotionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which Emotions to delete
-     */
-    where?: EmotionWhereInput
-    /**
-     * Limit how many Emotions to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * Emotion.quotes
-   */
-  export type Emotion$quotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Quote
-     */
-    select?: QuoteSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Quote
-     */
-    omit?: QuoteOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: QuoteInclude<ExtArgs> | null
-    where?: QuoteWhereInput
-    orderBy?: QuoteOrderByWithRelationInput | QuoteOrderByWithRelationInput[]
-    cursor?: QuoteWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: QuoteScalarFieldEnum | QuoteScalarFieldEnum[]
-  }
-
-  /**
-   * Emotion without action
-   */
-  export type EmotionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Emotion
-     */
-    select?: EmotionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Emotion
-     */
-    omit?: EmotionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: EmotionInclude<ExtArgs> | null
   }
 
 
@@ -4295,20 +3186,14 @@ export namespace Prisma {
   export const QuoteScalarFieldEnum: {
     id: 'id',
     text: 'text',
+    mood: 'mood',
+    tone: 'tone',
+    authorId: 'authorId',
     createdAt: 'createdAt',
-    emotionId: 'emotionId',
-    authorId: 'authorId'
+    isCustom: 'isCustom'
   };
 
   export type QuoteScalarFieldEnum = (typeof QuoteScalarFieldEnum)[keyof typeof QuoteScalarFieldEnum]
-
-
-  export const EmotionScalarFieldEnum: {
-    id: 'id',
-    name: 'name'
-  };
-
-  export type EmotionScalarFieldEnum = (typeof EmotionScalarFieldEnum)[keyof typeof EmotionScalarFieldEnum]
 
 
   export const AuthorScalarFieldEnum: {
@@ -4363,6 +3248,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Mood'
+   */
+  export type EnumMoodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Mood'>
+    
+
+
+  /**
+   * Reference to a field of type 'Mood[]'
+   */
+  export type ListEnumMoodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Mood[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Tone'
+   */
+  export type EnumToneFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Tone'>
+    
+
+
+  /**
+   * Reference to a field of type 'Tone[]'
+   */
+  export type ListEnumToneFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Tone[]'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -4373,6 +3286,13 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4399,20 +3319,22 @@ export namespace Prisma {
     NOT?: QuoteWhereInput | QuoteWhereInput[]
     id?: StringFilter<"Quote"> | string
     text?: StringFilter<"Quote"> | string
-    createdAt?: DateTimeFilter<"Quote"> | Date | string
-    emotionId?: StringNullableFilter<"Quote"> | string | null
+    mood?: EnumMoodFilter<"Quote"> | $Enums.Mood
+    tone?: EnumToneFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableFilter<"Quote"> | string | null
-    emotion?: XOR<EmotionNullableScalarRelationFilter, EmotionWhereInput> | null
+    createdAt?: DateTimeFilter<"Quote"> | Date | string
+    isCustom?: BoolFilter<"Quote"> | boolean
     author?: XOR<AuthorNullableScalarRelationFilter, AuthorWhereInput> | null
   }
 
   export type QuoteOrderByWithRelationInput = {
     id?: SortOrder
     text?: SortOrder
-    createdAt?: SortOrder
-    emotionId?: SortOrderInput | SortOrder
+    mood?: SortOrder
+    tone?: SortOrder
     authorId?: SortOrderInput | SortOrder
-    emotion?: EmotionOrderByWithRelationInput
+    createdAt?: SortOrder
+    isCustom?: SortOrder
     author?: AuthorOrderByWithRelationInput
   }
 
@@ -4422,19 +3344,22 @@ export namespace Prisma {
     OR?: QuoteWhereInput[]
     NOT?: QuoteWhereInput | QuoteWhereInput[]
     text?: StringFilter<"Quote"> | string
-    createdAt?: DateTimeFilter<"Quote"> | Date | string
-    emotionId?: StringNullableFilter<"Quote"> | string | null
+    mood?: EnumMoodFilter<"Quote"> | $Enums.Mood
+    tone?: EnumToneFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableFilter<"Quote"> | string | null
-    emotion?: XOR<EmotionNullableScalarRelationFilter, EmotionWhereInput> | null
+    createdAt?: DateTimeFilter<"Quote"> | Date | string
+    isCustom?: BoolFilter<"Quote"> | boolean
     author?: XOR<AuthorNullableScalarRelationFilter, AuthorWhereInput> | null
   }, "id">
 
   export type QuoteOrderByWithAggregationInput = {
     id?: SortOrder
     text?: SortOrder
-    createdAt?: SortOrder
-    emotionId?: SortOrderInput | SortOrder
+    mood?: SortOrder
+    tone?: SortOrder
     authorId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    isCustom?: SortOrder
     _count?: QuoteCountOrderByAggregateInput
     _max?: QuoteMaxOrderByAggregateInput
     _min?: QuoteMinOrderByAggregateInput
@@ -4446,49 +3371,11 @@ export namespace Prisma {
     NOT?: QuoteScalarWhereWithAggregatesInput | QuoteScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Quote"> | string
     text?: StringWithAggregatesFilter<"Quote"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"Quote"> | Date | string
-    emotionId?: StringNullableWithAggregatesFilter<"Quote"> | string | null
+    mood?: EnumMoodWithAggregatesFilter<"Quote"> | $Enums.Mood
+    tone?: EnumToneWithAggregatesFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableWithAggregatesFilter<"Quote"> | string | null
-  }
-
-  export type EmotionWhereInput = {
-    AND?: EmotionWhereInput | EmotionWhereInput[]
-    OR?: EmotionWhereInput[]
-    NOT?: EmotionWhereInput | EmotionWhereInput[]
-    id?: StringFilter<"Emotion"> | string
-    name?: StringFilter<"Emotion"> | string
-    quotes?: QuoteListRelationFilter
-  }
-
-  export type EmotionOrderByWithRelationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    quotes?: QuoteOrderByRelationAggregateInput
-  }
-
-  export type EmotionWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    name?: string
-    AND?: EmotionWhereInput | EmotionWhereInput[]
-    OR?: EmotionWhereInput[]
-    NOT?: EmotionWhereInput | EmotionWhereInput[]
-    quotes?: QuoteListRelationFilter
-  }, "id" | "name">
-
-  export type EmotionOrderByWithAggregationInput = {
-    id?: SortOrder
-    name?: SortOrder
-    _count?: EmotionCountOrderByAggregateInput
-    _max?: EmotionMaxOrderByAggregateInput
-    _min?: EmotionMinOrderByAggregateInput
-  }
-
-  export type EmotionScalarWhereWithAggregatesInput = {
-    AND?: EmotionScalarWhereWithAggregatesInput | EmotionScalarWhereWithAggregatesInput[]
-    OR?: EmotionScalarWhereWithAggregatesInput[]
-    NOT?: EmotionScalarWhereWithAggregatesInput | EmotionScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"Emotion"> | string
-    name?: StringWithAggregatesFilter<"Emotion"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Quote"> | Date | string
+    isCustom?: BoolWithAggregatesFilter<"Quote"> | boolean
   }
 
   export type AuthorWhereInput = {
@@ -4534,94 +3421,70 @@ export namespace Prisma {
   export type QuoteCreateInput = {
     id?: string
     text: string
+    mood: $Enums.Mood
+    tone: $Enums.Tone
     createdAt?: Date | string
-    emotion?: EmotionCreateNestedOneWithoutQuotesInput
+    isCustom?: boolean
     author?: AuthorCreateNestedOneWithoutQuotesInput
   }
 
   export type QuoteUncheckedCreateInput = {
     id?: string
     text: string
-    createdAt?: Date | string
-    emotionId?: string | null
+    mood: $Enums.Mood
+    tone: $Enums.Tone
     authorId?: string | null
+    createdAt?: Date | string
+    isCustom?: boolean
   }
 
   export type QuoteUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
+    mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
+    tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    emotion?: EmotionUpdateOneWithoutQuotesNestedInput
+    isCustom?: BoolFieldUpdateOperationsInput | boolean
     author?: AuthorUpdateOneWithoutQuotesNestedInput
   }
 
   export type QuoteUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    emotionId?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
+    tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     authorId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type QuoteCreateManyInput = {
     id?: string
     text: string
-    createdAt?: Date | string
-    emotionId?: string | null
+    mood: $Enums.Mood
+    tone: $Enums.Tone
     authorId?: string | null
+    createdAt?: Date | string
+    isCustom?: boolean
   }
 
   export type QuoteUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
+    mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
+    tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type QuoteUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    emotionId?: NullableStringFieldUpdateOperationsInput | string | null
+    mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
+    tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     authorId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type EmotionCreateInput = {
-    id?: string
-    name: string
-    quotes?: QuoteCreateNestedManyWithoutEmotionInput
-  }
-
-  export type EmotionUncheckedCreateInput = {
-    id?: string
-    name: string
-    quotes?: QuoteUncheckedCreateNestedManyWithoutEmotionInput
-  }
-
-  export type EmotionUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    quotes?: QuoteUpdateManyWithoutEmotionNestedInput
-  }
-
-  export type EmotionUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    quotes?: QuoteUncheckedUpdateManyWithoutEmotionNestedInput
-  }
-
-  export type EmotionCreateManyInput = {
-    id?: string
-    name: string
-  }
-
-  export type EmotionUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type EmotionUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AuthorCreateInput = {
@@ -4678,15 +3541,18 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  export type EnumMoodFilter<$PrismaModel = never> = {
+    equals?: $Enums.Mood | EnumMoodFieldRefInput<$PrismaModel>
+    in?: $Enums.Mood[] | ListEnumMoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Mood[] | ListEnumMoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoodFilter<$PrismaModel> | $Enums.Mood
+  }
+
+  export type EnumToneFilter<$PrismaModel = never> = {
+    equals?: $Enums.Tone | EnumToneFieldRefInput<$PrismaModel>
+    in?: $Enums.Tone[] | ListEnumToneFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Tone[] | ListEnumToneFieldRefInput<$PrismaModel>
+    not?: NestedEnumToneFilter<$PrismaModel> | $Enums.Tone
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -4704,9 +3570,20 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type EmotionNullableScalarRelationFilter = {
-    is?: EmotionWhereInput | null
-    isNot?: EmotionWhereInput | null
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type AuthorNullableScalarRelationFilter = {
@@ -4722,25 +3599,31 @@ export namespace Prisma {
   export type QuoteCountOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
-    createdAt?: SortOrder
-    emotionId?: SortOrder
+    mood?: SortOrder
+    tone?: SortOrder
     authorId?: SortOrder
+    createdAt?: SortOrder
+    isCustom?: SortOrder
   }
 
   export type QuoteMaxOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
-    createdAt?: SortOrder
-    emotionId?: SortOrder
+    mood?: SortOrder
+    tone?: SortOrder
     authorId?: SortOrder
+    createdAt?: SortOrder
+    isCustom?: SortOrder
   }
 
   export type QuoteMinOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
-    createdAt?: SortOrder
-    emotionId?: SortOrder
+    mood?: SortOrder
+    tone?: SortOrder
     authorId?: SortOrder
+    createdAt?: SortOrder
+    isCustom?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -4761,18 +3644,24 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+  export type EnumMoodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Mood | EnumMoodFieldRefInput<$PrismaModel>
+    in?: $Enums.Mood[] | ListEnumMoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Mood[] | ListEnumMoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoodWithAggregatesFilter<$PrismaModel> | $Enums.Mood
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    _min?: NestedEnumMoodFilter<$PrismaModel>
+    _max?: NestedEnumMoodFilter<$PrismaModel>
+  }
+
+  export type EnumToneWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Tone | EnumToneFieldRefInput<$PrismaModel>
+    in?: $Enums.Tone[] | ListEnumToneFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Tone[] | ListEnumToneFieldRefInput<$PrismaModel>
+    not?: NestedEnumToneWithAggregatesFilter<$PrismaModel> | $Enums.Tone
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumToneFilter<$PrismaModel>
+    _max?: NestedEnumToneFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -4793,6 +3682,28 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type QuoteListRelationFilter = {
     every?: QuoteWhereInput
     some?: QuoteWhereInput
@@ -4801,21 +3712,6 @@ export namespace Prisma {
 
   export type QuoteOrderByRelationAggregateInput = {
     _count?: SortOrder
-  }
-
-  export type EmotionCountOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-  }
-
-  export type EmotionMaxOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
-  }
-
-  export type EmotionMinOrderByAggregateInput = {
-    id?: SortOrder
-    name?: SortOrder
   }
 
   export type AuthorCountOrderByAggregateInput = {
@@ -4833,12 +3729,6 @@ export namespace Prisma {
     name?: SortOrder
   }
 
-  export type EmotionCreateNestedOneWithoutQuotesInput = {
-    create?: XOR<EmotionCreateWithoutQuotesInput, EmotionUncheckedCreateWithoutQuotesInput>
-    connectOrCreate?: EmotionCreateOrConnectWithoutQuotesInput
-    connect?: EmotionWhereUniqueInput
-  }
-
   export type AuthorCreateNestedOneWithoutQuotesInput = {
     create?: XOR<AuthorCreateWithoutQuotesInput, AuthorUncheckedCreateWithoutQuotesInput>
     connectOrCreate?: AuthorCreateOrConnectWithoutQuotesInput
@@ -4849,18 +3739,20 @@ export namespace Prisma {
     set?: string
   }
 
+  export type EnumMoodFieldUpdateOperationsInput = {
+    set?: $Enums.Mood
+  }
+
+  export type EnumToneFieldUpdateOperationsInput = {
+    set?: $Enums.Tone
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type EmotionUpdateOneWithoutQuotesNestedInput = {
-    create?: XOR<EmotionCreateWithoutQuotesInput, EmotionUncheckedCreateWithoutQuotesInput>
-    connectOrCreate?: EmotionCreateOrConnectWithoutQuotesInput
-    upsert?: EmotionUpsertWithoutQuotesInput
-    disconnect?: EmotionWhereInput | boolean
-    delete?: EmotionWhereInput | boolean
-    connect?: EmotionWhereUniqueInput
-    update?: XOR<XOR<EmotionUpdateToOneWithWhereWithoutQuotesInput, EmotionUpdateWithoutQuotesInput>, EmotionUncheckedUpdateWithoutQuotesInput>
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type AuthorUpdateOneWithoutQuotesNestedInput = {
@@ -4875,48 +3767,6 @@ export namespace Prisma {
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
-  }
-
-  export type QuoteCreateNestedManyWithoutEmotionInput = {
-    create?: XOR<QuoteCreateWithoutEmotionInput, QuoteUncheckedCreateWithoutEmotionInput> | QuoteCreateWithoutEmotionInput[] | QuoteUncheckedCreateWithoutEmotionInput[]
-    connectOrCreate?: QuoteCreateOrConnectWithoutEmotionInput | QuoteCreateOrConnectWithoutEmotionInput[]
-    createMany?: QuoteCreateManyEmotionInputEnvelope
-    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-  }
-
-  export type QuoteUncheckedCreateNestedManyWithoutEmotionInput = {
-    create?: XOR<QuoteCreateWithoutEmotionInput, QuoteUncheckedCreateWithoutEmotionInput> | QuoteCreateWithoutEmotionInput[] | QuoteUncheckedCreateWithoutEmotionInput[]
-    connectOrCreate?: QuoteCreateOrConnectWithoutEmotionInput | QuoteCreateOrConnectWithoutEmotionInput[]
-    createMany?: QuoteCreateManyEmotionInputEnvelope
-    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-  }
-
-  export type QuoteUpdateManyWithoutEmotionNestedInput = {
-    create?: XOR<QuoteCreateWithoutEmotionInput, QuoteUncheckedCreateWithoutEmotionInput> | QuoteCreateWithoutEmotionInput[] | QuoteUncheckedCreateWithoutEmotionInput[]
-    connectOrCreate?: QuoteCreateOrConnectWithoutEmotionInput | QuoteCreateOrConnectWithoutEmotionInput[]
-    upsert?: QuoteUpsertWithWhereUniqueWithoutEmotionInput | QuoteUpsertWithWhereUniqueWithoutEmotionInput[]
-    createMany?: QuoteCreateManyEmotionInputEnvelope
-    set?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    disconnect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    delete?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    update?: QuoteUpdateWithWhereUniqueWithoutEmotionInput | QuoteUpdateWithWhereUniqueWithoutEmotionInput[]
-    updateMany?: QuoteUpdateManyWithWhereWithoutEmotionInput | QuoteUpdateManyWithWhereWithoutEmotionInput[]
-    deleteMany?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
-  }
-
-  export type QuoteUncheckedUpdateManyWithoutEmotionNestedInput = {
-    create?: XOR<QuoteCreateWithoutEmotionInput, QuoteUncheckedCreateWithoutEmotionInput> | QuoteCreateWithoutEmotionInput[] | QuoteUncheckedCreateWithoutEmotionInput[]
-    connectOrCreate?: QuoteCreateOrConnectWithoutEmotionInput | QuoteCreateOrConnectWithoutEmotionInput[]
-    upsert?: QuoteUpsertWithWhereUniqueWithoutEmotionInput | QuoteUpsertWithWhereUniqueWithoutEmotionInput[]
-    createMany?: QuoteCreateManyEmotionInputEnvelope
-    set?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    disconnect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    delete?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    connect?: QuoteWhereUniqueInput | QuoteWhereUniqueInput[]
-    update?: QuoteUpdateWithWhereUniqueWithoutEmotionInput | QuoteUpdateWithWhereUniqueWithoutEmotionInput[]
-    updateMany?: QuoteUpdateManyWithWhereWithoutEmotionInput | QuoteUpdateManyWithWhereWithoutEmotionInput[]
-    deleteMany?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
   }
 
   export type QuoteCreateNestedManyWithoutAuthorInput = {
@@ -4975,15 +3825,18 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  export type NestedEnumMoodFilter<$PrismaModel = never> = {
+    equals?: $Enums.Mood | EnumMoodFieldRefInput<$PrismaModel>
+    in?: $Enums.Mood[] | ListEnumMoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Mood[] | ListEnumMoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoodFilter<$PrismaModel> | $Enums.Mood
+  }
+
+  export type NestedEnumToneFilter<$PrismaModel = never> = {
+    equals?: $Enums.Tone | EnumToneFieldRefInput<$PrismaModel>
+    in?: $Enums.Tone[] | ListEnumToneFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Tone[] | ListEnumToneFieldRefInput<$PrismaModel>
+    not?: NestedEnumToneFilter<$PrismaModel> | $Enums.Tone
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -4998,6 +3851,22 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -5028,18 +3897,24 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+  export type NestedEnumMoodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Mood | EnumMoodFieldRefInput<$PrismaModel>
+    in?: $Enums.Mood[] | ListEnumMoodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Mood[] | ListEnumMoodFieldRefInput<$PrismaModel>
+    not?: NestedEnumMoodWithAggregatesFilter<$PrismaModel> | $Enums.Mood
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+    _min?: NestedEnumMoodFilter<$PrismaModel>
+    _max?: NestedEnumMoodFilter<$PrismaModel>
+  }
+
+  export type NestedEnumToneWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Tone | EnumToneFieldRefInput<$PrismaModel>
+    in?: $Enums.Tone[] | ListEnumToneFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Tone[] | ListEnumToneFieldRefInput<$PrismaModel>
+    not?: NestedEnumToneWithAggregatesFilter<$PrismaModel> | $Enums.Tone
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumToneFilter<$PrismaModel>
+    _max?: NestedEnumToneFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -5070,19 +3945,26 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type EmotionCreateWithoutQuotesInput = {
-    id?: string
-    name: string
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EmotionUncheckedCreateWithoutQuotesInput = {
-    id?: string
-    name: string
-  }
-
-  export type EmotionCreateOrConnectWithoutQuotesInput = {
-    where: EmotionWhereUniqueInput
-    create: XOR<EmotionCreateWithoutQuotesInput, EmotionUncheckedCreateWithoutQuotesInput>
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type AuthorCreateWithoutQuotesInput = {
@@ -5098,27 +3980,6 @@ export namespace Prisma {
   export type AuthorCreateOrConnectWithoutQuotesInput = {
     where: AuthorWhereUniqueInput
     create: XOR<AuthorCreateWithoutQuotesInput, AuthorUncheckedCreateWithoutQuotesInput>
-  }
-
-  export type EmotionUpsertWithoutQuotesInput = {
-    update: XOR<EmotionUpdateWithoutQuotesInput, EmotionUncheckedUpdateWithoutQuotesInput>
-    create: XOR<EmotionCreateWithoutQuotesInput, EmotionUncheckedCreateWithoutQuotesInput>
-    where?: EmotionWhereInput
-  }
-
-  export type EmotionUpdateToOneWithWhereWithoutQuotesInput = {
-    where?: EmotionWhereInput
-    data: XOR<EmotionUpdateWithoutQuotesInput, EmotionUncheckedUpdateWithoutQuotesInput>
-  }
-
-  export type EmotionUpdateWithoutQuotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type EmotionUncheckedUpdateWithoutQuotesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
   }
 
   export type AuthorUpsertWithoutQuotesInput = {
@@ -5142,69 +4003,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type QuoteCreateWithoutEmotionInput = {
-    id?: string
-    text: string
-    createdAt?: Date | string
-    author?: AuthorCreateNestedOneWithoutQuotesInput
-  }
-
-  export type QuoteUncheckedCreateWithoutEmotionInput = {
-    id?: string
-    text: string
-    createdAt?: Date | string
-    authorId?: string | null
-  }
-
-  export type QuoteCreateOrConnectWithoutEmotionInput = {
-    where: QuoteWhereUniqueInput
-    create: XOR<QuoteCreateWithoutEmotionInput, QuoteUncheckedCreateWithoutEmotionInput>
-  }
-
-  export type QuoteCreateManyEmotionInputEnvelope = {
-    data: QuoteCreateManyEmotionInput | QuoteCreateManyEmotionInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type QuoteUpsertWithWhereUniqueWithoutEmotionInput = {
-    where: QuoteWhereUniqueInput
-    update: XOR<QuoteUpdateWithoutEmotionInput, QuoteUncheckedUpdateWithoutEmotionInput>
-    create: XOR<QuoteCreateWithoutEmotionInput, QuoteUncheckedCreateWithoutEmotionInput>
-  }
-
-  export type QuoteUpdateWithWhereUniqueWithoutEmotionInput = {
-    where: QuoteWhereUniqueInput
-    data: XOR<QuoteUpdateWithoutEmotionInput, QuoteUncheckedUpdateWithoutEmotionInput>
-  }
-
-  export type QuoteUpdateManyWithWhereWithoutEmotionInput = {
-    where: QuoteScalarWhereInput
-    data: XOR<QuoteUpdateManyMutationInput, QuoteUncheckedUpdateManyWithoutEmotionInput>
-  }
-
-  export type QuoteScalarWhereInput = {
-    AND?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
-    OR?: QuoteScalarWhereInput[]
-    NOT?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
-    id?: StringFilter<"Quote"> | string
-    text?: StringFilter<"Quote"> | string
-    createdAt?: DateTimeFilter<"Quote"> | Date | string
-    emotionId?: StringNullableFilter<"Quote"> | string | null
-    authorId?: StringNullableFilter<"Quote"> | string | null
-  }
-
   export type QuoteCreateWithoutAuthorInput = {
     id?: string
     text: string
+    mood: $Enums.Mood
+    tone: $Enums.Tone
     createdAt?: Date | string
-    emotion?: EmotionCreateNestedOneWithoutQuotesInput
+    isCustom?: boolean
   }
 
   export type QuoteUncheckedCreateWithoutAuthorInput = {
     id?: string
     text: string
+    mood: $Enums.Mood
+    tone: $Enums.Tone
     createdAt?: Date | string
-    emotionId?: string | null
+    isCustom?: boolean
   }
 
   export type QuoteCreateOrConnectWithoutAuthorInput = {
@@ -5233,60 +4047,53 @@ export namespace Prisma {
     data: XOR<QuoteUpdateManyMutationInput, QuoteUncheckedUpdateManyWithoutAuthorInput>
   }
 
-  export type QuoteCreateManyEmotionInput = {
-    id?: string
-    text: string
-    createdAt?: Date | string
-    authorId?: string | null
-  }
-
-  export type QuoteUpdateWithoutEmotionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    text?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    author?: AuthorUpdateOneWithoutQuotesNestedInput
-  }
-
-  export type QuoteUncheckedUpdateWithoutEmotionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    text?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type QuoteUncheckedUpdateManyWithoutEmotionInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    text?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    authorId?: NullableStringFieldUpdateOperationsInput | string | null
+  export type QuoteScalarWhereInput = {
+    AND?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
+    OR?: QuoteScalarWhereInput[]
+    NOT?: QuoteScalarWhereInput | QuoteScalarWhereInput[]
+    id?: StringFilter<"Quote"> | string
+    text?: StringFilter<"Quote"> | string
+    mood?: EnumMoodFilter<"Quote"> | $Enums.Mood
+    tone?: EnumToneFilter<"Quote"> | $Enums.Tone
+    authorId?: StringNullableFilter<"Quote"> | string | null
+    createdAt?: DateTimeFilter<"Quote"> | Date | string
+    isCustom?: BoolFilter<"Quote"> | boolean
   }
 
   export type QuoteCreateManyAuthorInput = {
     id?: string
     text: string
+    mood: $Enums.Mood
+    tone: $Enums.Tone
     createdAt?: Date | string
-    emotionId?: string | null
+    isCustom?: boolean
   }
 
   export type QuoteUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
+    mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
+    tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    emotion?: EmotionUpdateOneWithoutQuotesNestedInput
+    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type QuoteUncheckedUpdateWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
+    mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
+    tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    emotionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type QuoteUncheckedUpdateManyWithoutAuthorInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
+    mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
+    tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    emotionId?: NullableStringFieldUpdateOperationsInput | string | null
+    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

@@ -1052,7 +1052,6 @@ export namespace Prisma {
     tone: $Enums.Tone | null
     authorId: string | null
     createdAt: Date | null
-    isCustom: boolean | null
   }
 
   export type QuoteMaxAggregateOutputType = {
@@ -1062,7 +1061,6 @@ export namespace Prisma {
     tone: $Enums.Tone | null
     authorId: string | null
     createdAt: Date | null
-    isCustom: boolean | null
   }
 
   export type QuoteCountAggregateOutputType = {
@@ -1072,7 +1070,6 @@ export namespace Prisma {
     tone: number
     authorId: number
     createdAt: number
-    isCustom: number
     _all: number
   }
 
@@ -1084,7 +1081,6 @@ export namespace Prisma {
     tone?: true
     authorId?: true
     createdAt?: true
-    isCustom?: true
   }
 
   export type QuoteMaxAggregateInputType = {
@@ -1094,7 +1090,6 @@ export namespace Prisma {
     tone?: true
     authorId?: true
     createdAt?: true
-    isCustom?: true
   }
 
   export type QuoteCountAggregateInputType = {
@@ -1104,7 +1099,6 @@ export namespace Prisma {
     tone?: true
     authorId?: true
     createdAt?: true
-    isCustom?: true
     _all?: true
   }
 
@@ -1187,7 +1181,6 @@ export namespace Prisma {
     tone: $Enums.Tone
     authorId: string | null
     createdAt: Date
-    isCustom: boolean
     _count: QuoteCountAggregateOutputType | null
     _min: QuoteMinAggregateOutputType | null
     _max: QuoteMaxAggregateOutputType | null
@@ -1214,7 +1207,6 @@ export namespace Prisma {
     tone?: boolean
     authorId?: boolean
     createdAt?: boolean
-    isCustom?: boolean
     author?: boolean | Quote$authorArgs<ExtArgs>
   }, ExtArgs["result"]["quote"]>
 
@@ -1225,7 +1217,6 @@ export namespace Prisma {
     tone?: boolean
     authorId?: boolean
     createdAt?: boolean
-    isCustom?: boolean
     author?: boolean | Quote$authorArgs<ExtArgs>
   }, ExtArgs["result"]["quote"]>
 
@@ -1236,7 +1227,6 @@ export namespace Prisma {
     tone?: boolean
     authorId?: boolean
     createdAt?: boolean
-    isCustom?: boolean
     author?: boolean | Quote$authorArgs<ExtArgs>
   }, ExtArgs["result"]["quote"]>
 
@@ -1247,10 +1237,9 @@ export namespace Prisma {
     tone?: boolean
     authorId?: boolean
     createdAt?: boolean
-    isCustom?: boolean
   }
 
-  export type QuoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "mood" | "tone" | "authorId" | "createdAt" | "isCustom", ExtArgs["result"]["quote"]>
+  export type QuoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "mood" | "tone" | "authorId" | "createdAt", ExtArgs["result"]["quote"]>
   export type QuoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     author?: boolean | Quote$authorArgs<ExtArgs>
   }
@@ -1273,7 +1262,6 @@ export namespace Prisma {
       tone: $Enums.Tone
       authorId: string | null
       createdAt: Date
-      isCustom: boolean
     }, ExtArgs["result"]["quote"]>
     composites: {}
   }
@@ -1704,7 +1692,6 @@ export namespace Prisma {
     readonly tone: FieldRef<"Quote", 'Tone'>
     readonly authorId: FieldRef<"Quote", 'String'>
     readonly createdAt: FieldRef<"Quote", 'DateTime'>
-    readonly isCustom: FieldRef<"Quote", 'Boolean'>
   }
     
 
@@ -3189,8 +3176,7 @@ export namespace Prisma {
     mood: 'mood',
     tone: 'tone',
     authorId: 'authorId',
-    createdAt: 'createdAt',
-    isCustom: 'isCustom'
+    createdAt: 'createdAt'
   };
 
   export type QuoteScalarFieldEnum = (typeof QuoteScalarFieldEnum)[keyof typeof QuoteScalarFieldEnum]
@@ -3290,13 +3276,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -3323,7 +3302,6 @@ export namespace Prisma {
     tone?: EnumToneFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableFilter<"Quote"> | string | null
     createdAt?: DateTimeFilter<"Quote"> | Date | string
-    isCustom?: BoolFilter<"Quote"> | boolean
     author?: XOR<AuthorNullableScalarRelationFilter, AuthorWhereInput> | null
   }
 
@@ -3334,7 +3312,6 @@ export namespace Prisma {
     tone?: SortOrder
     authorId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    isCustom?: SortOrder
     author?: AuthorOrderByWithRelationInput
   }
 
@@ -3348,7 +3325,6 @@ export namespace Prisma {
     tone?: EnumToneFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableFilter<"Quote"> | string | null
     createdAt?: DateTimeFilter<"Quote"> | Date | string
-    isCustom?: BoolFilter<"Quote"> | boolean
     author?: XOR<AuthorNullableScalarRelationFilter, AuthorWhereInput> | null
   }, "id" | "content">
 
@@ -3359,7 +3335,6 @@ export namespace Prisma {
     tone?: SortOrder
     authorId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    isCustom?: SortOrder
     _count?: QuoteCountOrderByAggregateInput
     _max?: QuoteMaxOrderByAggregateInput
     _min?: QuoteMinOrderByAggregateInput
@@ -3375,7 +3350,6 @@ export namespace Prisma {
     tone?: EnumToneWithAggregatesFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableWithAggregatesFilter<"Quote"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Quote"> | Date | string
-    isCustom?: BoolWithAggregatesFilter<"Quote"> | boolean
   }
 
   export type AuthorWhereInput = {
@@ -3424,7 +3398,6 @@ export namespace Prisma {
     mood: $Enums.Mood
     tone: $Enums.Tone
     createdAt?: Date | string
-    isCustom?: boolean
     author?: AuthorCreateNestedOneWithoutQuotesInput
   }
 
@@ -3435,7 +3408,6 @@ export namespace Prisma {
     tone: $Enums.Tone
     authorId?: string | null
     createdAt?: Date | string
-    isCustom?: boolean
   }
 
   export type QuoteUpdateInput = {
@@ -3444,7 +3416,6 @@ export namespace Prisma {
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isCustom?: BoolFieldUpdateOperationsInput | boolean
     author?: AuthorUpdateOneWithoutQuotesNestedInput
   }
 
@@ -3455,7 +3426,6 @@ export namespace Prisma {
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     authorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type QuoteCreateManyInput = {
@@ -3465,7 +3435,6 @@ export namespace Prisma {
     tone: $Enums.Tone
     authorId?: string | null
     createdAt?: Date | string
-    isCustom?: boolean
   }
 
   export type QuoteUpdateManyMutationInput = {
@@ -3474,7 +3443,6 @@ export namespace Prisma {
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type QuoteUncheckedUpdateManyInput = {
@@ -3484,7 +3452,6 @@ export namespace Prisma {
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     authorId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AuthorCreateInput = {
@@ -3581,11 +3548,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type AuthorNullableScalarRelationFilter = {
     is?: AuthorWhereInput | null
     isNot?: AuthorWhereInput | null
@@ -3603,7 +3565,6 @@ export namespace Prisma {
     tone?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
-    isCustom?: SortOrder
   }
 
   export type QuoteMaxOrderByAggregateInput = {
@@ -3613,7 +3574,6 @@ export namespace Prisma {
     tone?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
-    isCustom?: SortOrder
   }
 
   export type QuoteMinOrderByAggregateInput = {
@@ -3623,7 +3583,6 @@ export namespace Prisma {
     tone?: SortOrder
     authorId?: SortOrder
     createdAt?: SortOrder
-    isCustom?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -3696,14 +3655,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type QuoteListRelationFilter = {
     every?: QuoteWhereInput
     some?: QuoteWhereInput
@@ -3749,10 +3700,6 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type AuthorUpdateOneWithoutQuotesNestedInput = {
@@ -3864,11 +3811,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -3959,14 +3901,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type AuthorCreateWithoutQuotesInput = {
     id?: string
     name: string
@@ -4009,7 +3943,6 @@ export namespace Prisma {
     mood: $Enums.Mood
     tone: $Enums.Tone
     createdAt?: Date | string
-    isCustom?: boolean
   }
 
   export type QuoteUncheckedCreateWithoutAuthorInput = {
@@ -4018,7 +3951,6 @@ export namespace Prisma {
     mood: $Enums.Mood
     tone: $Enums.Tone
     createdAt?: Date | string
-    isCustom?: boolean
   }
 
   export type QuoteCreateOrConnectWithoutAuthorInput = {
@@ -4057,7 +3989,6 @@ export namespace Prisma {
     tone?: EnumToneFilter<"Quote"> | $Enums.Tone
     authorId?: StringNullableFilter<"Quote"> | string | null
     createdAt?: DateTimeFilter<"Quote"> | Date | string
-    isCustom?: BoolFilter<"Quote"> | boolean
   }
 
   export type QuoteCreateManyAuthorInput = {
@@ -4066,7 +3997,6 @@ export namespace Prisma {
     mood: $Enums.Mood
     tone: $Enums.Tone
     createdAt?: Date | string
-    isCustom?: boolean
   }
 
   export type QuoteUpdateWithoutAuthorInput = {
@@ -4075,7 +4005,6 @@ export namespace Prisma {
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type QuoteUncheckedUpdateWithoutAuthorInput = {
@@ -4084,7 +4013,6 @@ export namespace Prisma {
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type QuoteUncheckedUpdateManyWithoutAuthorInput = {
@@ -4093,7 +4021,6 @@ export namespace Prisma {
     mood?: EnumMoodFieldUpdateOperationsInput | $Enums.Mood
     tone?: EnumToneFieldUpdateOperationsInput | $Enums.Tone
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    isCustom?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

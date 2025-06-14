@@ -123,8 +123,7 @@ exports.Prisma.QuoteScalarFieldEnum = {
   mood: 'mood',
   tone: 'tone',
   authorId: 'authorId',
-  createdAt: 'createdAt',
-  isCustom: 'isCustom'
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.AuthorScalarFieldEnum = {

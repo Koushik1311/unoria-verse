@@ -42,7 +42,6 @@ model Quote {
   author    Author?  @relation(fields: [authorId], references: [id])
   authorId  String?
   createdAt DateTime @default(now())
-  isCustom  Boolean  @default(false)
 
   @@index([mood, tone])
 }

@@ -20,10 +20,10 @@ const allowedMoods = [
 
 export default function MoodInput() {
   const [inputValue, setInputValue] = useState("");
-  const { mood, setMood } = useMoodStore();
+  const { setMood } = useMoodStore();
   const router = useRouter();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const input = inputValue.trim();
@@ -46,11 +46,23 @@ export default function MoodInput() {
       }
     }
 
-    console.log("Mood: ", mood);
-    console.log("Input Value: ", inputValue);
-
     if (words.length > 1) {
-      // TODO: Call the backend api
+      const BACKEND_AI_URL = process.env.NEXT_PUBLIC_BACKEND_AI_BASE_URL;
+      const res = await fetch(`${BACKEND_AI_URL}/api/ai/mood`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userInput: input,
+        }),
+      });
+
+      if (res.status === 200) {
+        const data = await res.json();
+        if (data.success && data.data.response) {
+          setMood(data.data.response as (typeof allowedMoods)[number]);
+          router.push("/q");
+        }
+      }
     }
   };
 
@@ -75,7 +87,7 @@ export default function MoodInput() {
               }}
               className={`px-4 py-1.5 capitalize rounded-full text-sm font-medium transition-colors cursor-pointer
               ${
-                mood === moodOption
+                inputValue === moodOption
                   ? "bg-[#d4a373] text-white"
                   : "bg-gray-100 hover:bg-gray-200 text-gray-700"
               }`}

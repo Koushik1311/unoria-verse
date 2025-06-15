@@ -34,7 +34,6 @@ export default function Quotes() {
         const res = await fetch(`/api/quotes/${mood}`);
         const data = await res.json();
         setQuotes(data);
-        console.log(data); // 👈 Your quotes will show here
       } catch (error) {
         console.error("Error fetching quotes:", error);
       }

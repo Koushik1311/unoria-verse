@@ -1,5 +1,6 @@
 "use client";
 
+import { useMoodStore } from "@/store/moodStore";
 import { ArrowUp } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
@@ -14,15 +15,16 @@ const allowedMoods = [
   "inspired",
   "lonely",
   "motivated",
-];
+] as const;
 
 export default function MoodInput() {
-  const [mood, setMood] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const { mood, setMood } = useMoodStore();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const input = mood.trim();
+    const input = inputValue.trim();
     if (!input) {
       toast.error("Please enter your mood or feelings");
       return;
@@ -32,13 +34,16 @@ export default function MoodInput() {
 
     if (words.length === 1) {
       const singleWord = words[0].toLowerCase();
-      if (allowedMoods.includes(singleWord)) {
-        setMood(singleWord);
-        console.log("Mood: ", mood);
+      if (allowedMoods.includes(singleWord as (typeof allowedMoods)[number])) {
+        setMood(singleWord as (typeof allowedMoods)[number]);
+        setInputValue(singleWord);
       } else {
         toast.error("Invalid input");
       }
     }
+
+    console.log("Mood: ", mood);
+    console.log("Input Value: ", inputValue);
 
     if (words.length > 1) {
       // TODO: Call the backend api
@@ -60,7 +65,10 @@ export default function MoodInput() {
             <button
               key={moodOption}
               type="button"
-              onClick={() => setMood(moodOption)}
+              onClick={() => {
+                setMood(moodOption);
+                setInputValue(moodOption);
+              }}
               className={`px-4 py-1.5 capitalize rounded-full text-sm font-medium transition-colors cursor-pointer
               ${
                 mood === moodOption
@@ -74,13 +82,13 @@ export default function MoodInput() {
         </div>
 
         <textarea
-          value={mood}
-          onChange={(e) => setMood(e.target.value)}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type a mood or share how you're feeling today..."
           className={`w-full border border-[#d4a373] rounded-lg px-4 py-2 focus:outline-none focus:ring-1 focus:ring-[#d4a373] bg-white bg-opacity-80 placeholder-gray-500 min-h-[100px] resize-none italic font-normal`}
         />
-        {mood.trim() && (
+        {inputValue.trim() && (
           <div className="absolute right-1.5 bottom-3">
             <button
               type="submit"

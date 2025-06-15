@@ -2,6 +2,7 @@
 
 import { useMoodStore } from "@/store/moodStore";
 import { ArrowUp } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 
@@ -20,6 +21,7 @@ const allowedMoods = [
 export default function MoodInput() {
   const [inputValue, setInputValue] = useState("");
   const { mood, setMood } = useMoodStore();
+  const router = useRouter();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +39,8 @@ export default function MoodInput() {
       if (allowedMoods.includes(singleWord as (typeof allowedMoods)[number])) {
         setMood(singleWord as (typeof allowedMoods)[number]);
         setInputValue(singleWord);
+
+        router.push("/q");
       } else {
         toast.error("Invalid input");
       }
@@ -92,7 +96,7 @@ export default function MoodInput() {
           <div className="absolute right-1.5 bottom-3">
             <button
               type="submit"
-              className="bg-[#d4a373] text-white p-1.5 flex items-center justify-center rounded-full text-sm hover:bg-[#bc8d62] transition"
+              className="bg-[#d4a373] text-white p-1.5 flex items-center justify-center rounded-full text-sm hover:bg-[#bc8d62] transition cursor-pointer"
             >
               <ArrowUp size={18} />
             </button>

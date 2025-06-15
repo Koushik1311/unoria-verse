@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import QuoteCard from "../ui/QuoteCard";
 import { Keyboard, Mouse, MoveLeft, MoveRight } from "lucide-react";
+import { useMoodStore } from "@/store/moodStore";
 
 type QuoteType = {
   id: string;
@@ -25,11 +26,12 @@ type QuoteType = {
 export default function Quotes() {
   const [quotes, setQuotes] = useState<QuoteType[] | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { mood } = useMoodStore();
 
   useEffect(() => {
     const getQuotes = async () => {
       try {
-        const res = await fetch("/api/quotes/motivated");
+        const res = await fetch(`/api/quotes/${mood}`);
         const data = await res.json();
         setQuotes(data);
         console.log(data); // 👈 Your quotes will show here
@@ -39,7 +41,7 @@ export default function Quotes() {
     };
 
     getQuotes();
-  }, []);
+  }, [mood]);
 
   // Next/Previous Handlers
   const handleNext = useCallback(() => {

@@ -1,9 +1,10 @@
-import QuoteCard from "@/components/ui/QuoteCard";
+import Quotes from "@/components/quote/Quotes";
 
 export default function Home() {
   return (
     <div>
-      <QuoteCard
+      <Quotes />
+      {/* <QuoteCard
         quote={`<p>I must not fear.</p>
           <p><strong>Fear is the mind-killer.</strong></p>
           <p><strong>Fear is the little-death that brings total obliteration.</strong></p>
@@ -17,7 +18,7 @@ export default function Home() {
         author="Frank Herbert, Dune"
         type="motivated"
         keyId="1"
-      />
+      /> */}
     </div>
   );
 }

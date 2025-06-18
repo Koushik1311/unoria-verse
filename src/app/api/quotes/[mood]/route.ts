@@ -18,6 +18,7 @@ export async function GET(
   }
 
   try {
+    // TODO: need to get dynamic limit or based on plan
     const limit = 5;
 
     // Get the total number of quotes with the given mood

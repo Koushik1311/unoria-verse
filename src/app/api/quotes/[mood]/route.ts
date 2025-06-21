@@ -4,9 +4,9 @@ import { Mood } from "@/generated/prisma";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { mood: string } }
+  { params }: { params: Promise<{ mood: string }> }
 ) {
-  const { mood } = params;
+  const { mood } = await params;
 
   if (!mood) {
     return NextResponse.json({ error: "Mood is required" }, { status: 400 });

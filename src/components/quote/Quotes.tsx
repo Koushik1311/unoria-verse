@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import QuoteCard from "../ui/QuoteCard";
 import { Keyboard, Mouse, MoveLeft, MoveRight } from "lucide-react";
 import { useMoodStore } from "@/store/moodStore";
+import Loading from "@/app/(base)/loading";
 
 type QuoteType = {
   id: string;
@@ -65,7 +66,7 @@ export default function Quotes() {
   }, [handleNext, handlePrevious]);
 
   if (!quotes || quotes.length === 0) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   const currentQuote = quotes[currentIndex];

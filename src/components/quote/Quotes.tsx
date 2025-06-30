@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import QuoteCard from "../ui/QuoteCard";
-import { Keyboard, Mouse, MoveLeft, MoveRight } from "lucide-react";
+import { Keyboard, Mouse, MoveLeft, MoveRight, Smartphone } from "lucide-react";
 import { useMoodStore } from "@/store/moodStore";
 import Loading from "@/app/(base)/loading";
 
@@ -93,8 +93,9 @@ export default function Quotes() {
           />
         </button>
         <div className="flex items-center gap-1">
-          <Mouse size={16} className="text-gray-400" />
-          <Keyboard size={16} className="text-gray-400" />
+          <Mouse size={16} className="text-gray-400 hidden lg:block" />
+          <Keyboard size={16} className="text-gray-400 hidden lg:block" />
+          <Smartphone size={16} className="text-gray-400 lg:hidden" />
         </div>
         <button
           onClick={handleNext}

@@ -1,4 +1,6 @@
 export default function AboutPage() {
+  const checkoutUrl = process.env.LEMON_SQUEEZY_CHECKOUT_URL;
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-16 text-center text-[#3c2f2f]">
       <h1 className="text-3xl font-bold mb-6">🌱 How UnoriaVerse Was Born</h1>
@@ -119,7 +121,7 @@ export default function AboutPage() {
         If this little moment helped you breathe, you can help me keep it alive.
       </p>
       <a
-        href="https://diarist.lemonsqueezy.com/buy/ae352f83-3ef3-4ddf-b416-9c88a4fa0a17?embed=1&media=0&logo=0&discount=0"
+        href={checkoutUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-block bg-yellow-300 text-[#6e4b2f] px-4 py-2 rounded-md text-sm font-medium hover:bg-yellow-400 transition-all shadow-sm"

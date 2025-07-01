@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌿 UnoriaVerse
 
-## Getting Started
+**UnoriaVerse** is a calm corner on the internet where users can type how they're feeling and receive a quote that resonates. No account needed. No noise. Just presence.
 
-First, run the development server:
+It's for those quiet moments — when a simple line of words feels like understanding.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[🔗 Live Website](https://unoriaverse.vercel.app)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 💬 Type a mood or feeling, get a meaningful quote
+- 🤖 AI-powered tone detection (free & premium modes)
+- 📚 Curated quotes by emotion — 5 to 10 shown per session
+- 💖 Optional tipping via Lemon Squeezy
+- 🔐 Premium features (coming soon)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠 Built With
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Next.js** – App directory for modern routing
+- **Tailwind CSS** – For clean, responsive UI styling
+- **Neon + Prisma** – Postgres database with type-safe ORM
+- **Cloudflare Workers** – Fast, edge-deployed serverless functions
+- **Hono** – Lightweight routing for server APIs
+- **Workers AI** – AI-powered sentiment/mood analysis
+- **Lemon Squeezy** – For tips and future premium payments
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🙏 Support the Project
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If UnoriaVerse helped you feel seen or inspired, consider leaving a small tip:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[💛 Support on Lemon Squeezy](https://diarist.lemonsqueezy.com/buy/3bc6f19f-a23d-4749-a3be-5abd4f982fb5?embed=1&media=0&logo=0&desc=0&discount=0)
+
+---

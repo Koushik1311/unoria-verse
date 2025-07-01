@@ -112,6 +112,14 @@ export default function AboutPage() {
         >
           💬 Leave Feedback
         </a>
+        <a
+          href="https://github.com/Koushik1311/unoria-verse"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-yellow-600"
+        >
+          🌐 View on GitHub
+        </a>
       </div>
 
       <hr className="my-8 border-[#e0cfc3]" />

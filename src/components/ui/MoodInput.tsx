@@ -1,6 +1,10 @@
 "use client";
 
 import { useMoodStore } from "@/store/moodStore";
+import {
+  getRequestCountToday,
+  incrementRequestCountToday,
+} from "@/utils/localLimit";
 import { ArrowUp } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
@@ -24,8 +28,16 @@ export default function MoodInput() {
   const { setMood } = useMoodStore();
   const router = useRouter();
 
+  const MAX_FREE_REQUESTS = 2;
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const localCount = getRequestCountToday();
+    if (localCount >= MAX_FREE_REQUESTS) {
+      toast.error("You’ve used all your free quote requests today.");
+      return;
+    }
 
     const input = inputValue.trim();
     if (!input) {
@@ -40,7 +52,7 @@ export default function MoodInput() {
       if (allowedMoods.includes(singleWord as (typeof allowedMoods)[number])) {
         setMood(singleWord as (typeof allowedMoods)[number]);
         setInputValue(singleWord);
-
+        incrementRequestCountToday();
         router.push("/q");
       } else {
         toast.error("Invalid input");
@@ -48,26 +60,29 @@ export default function MoodInput() {
     }
 
     setLoading(true);
-    try {
-      const BACKEND_AI_URL = process.env.NEXT_PUBLIC_BACKEND_AI_BASE_URL;
-      const res = await fetch(`${BACKEND_AI_URL}/api/ai/mood`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userInput: input }),
-      });
+    if (words.length > 1) {
+      try {
+        const BACKEND_AI_URL = process.env.NEXT_PUBLIC_BACKEND_AI_BASE_URL;
+        const res = await fetch(`${BACKEND_AI_URL}/api/ai/mood`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userInput: input }),
+        });
 
-      const data = await res.json();
-      if (res.status === 200 && data.success && data.data.response) {
-        setMood(data.data.response as (typeof allowedMoods)[number]);
-        router.push("/q");
-      } else {
-        toast.error("Couldn't understand the mood.");
+        const data = await res.json();
+        if (res.status === 200 && data.success && data.data.response) {
+          setMood(data.data.response as (typeof allowedMoods)[number]);
+          incrementRequestCountToday();
+          router.push("/q");
+        } else {
+          toast.error("Couldn't understand the mood.");
+        }
+      } catch (err) {
+        toast.error("Something went wrong.");
+        console.error("Something went wrong.", err);
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      toast.error("Something went wrong.");
-      console.error("Something went wrong.", err);
-    } finally {
-      setLoading(false);
     }
   };
 

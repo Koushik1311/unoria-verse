@@ -1,11 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Mood } from "@/generated/prisma";
+import { isRequestAllowed } from "@/utils/rateLimiter";
 
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ mood: string }> }
 ) {
+  const ip = request.headers.get("x-forwarded-for") || "anonymous";
+
+  const allowed = await isRequestAllowed(ip, 2);
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "You’ve used your quote limit for today." },
+      { status: 429 }
+    );
+  }
+
   const { mood } = await params;
 
   if (!mood) {

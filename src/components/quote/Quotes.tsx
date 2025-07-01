@@ -5,6 +5,7 @@ import QuoteCard from "../ui/QuoteCard";
 import { Keyboard, Mouse, MoveLeft, MoveRight, Smartphone } from "lucide-react";
 import { useMoodStore } from "@/store/moodStore";
 import Loading from "@/app/(base)/loading";
+import { useRouter } from "next/navigation";
 
 type QuoteType = {
   id: string;
@@ -28,11 +29,16 @@ export default function Quotes() {
   const [quotes, setQuotes] = useState<QuoteType[] | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const { mood } = useMoodStore();
+  const router = useRouter();
 
   useEffect(() => {
     const getQuotes = async () => {
       try {
         const res = await fetch(`/api/quotes/${mood}`);
+        if (res.status === 429) {
+          router.push("/404");
+          return;
+        }
         const data = await res.json();
         setQuotes(data);
       } catch (error) {
@@ -41,7 +47,7 @@ export default function Quotes() {
     };
 
     getQuotes();
-  }, [mood]);
+  }, [mood, router]);
 
   // Next/Previous Handlers
   const handleNext = useCallback(() => {

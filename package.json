@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^6.23.1",
     "@prisma/client": "^6.6.0",
+    "@upstash/redis": "^1.35.1",
     "isomorphic-dompurify": "^2.24.0",
     "lucide-react": "^0.525.0",
     "motion": "^12.9.2",

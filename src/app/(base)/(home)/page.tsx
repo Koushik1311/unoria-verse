@@ -36,6 +36,15 @@ export default function Home() {
           >
             Feedback
           </a>
+          <span>.</span>
+          <a
+            href="https://github.com/Koushik1311/unoria-verse"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline"
+          >
+            GitHub
+          </a>
         </div>
       </div>
     </main>

@@ -20,6 +20,7 @@ const allowedMoods = [
 
 export default function MoodInput() {
   const [inputValue, setInputValue] = useState("");
+  const [loading, setLoading] = useState(false);
   const { setMood } = useMoodStore();
   const router = useRouter();
 
@@ -46,23 +47,27 @@ export default function MoodInput() {
       }
     }
 
-    if (words.length > 1) {
+    setLoading(true);
+    try {
       const BACKEND_AI_URL = process.env.NEXT_PUBLIC_BACKEND_AI_BASE_URL;
       const res = await fetch(`${BACKEND_AI_URL}/api/ai/mood`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userInput: input,
-        }),
+        body: JSON.stringify({ userInput: input }),
       });
 
-      if (res.status === 200) {
-        const data = await res.json();
-        if (data.success && data.data.response) {
-          setMood(data.data.response as (typeof allowedMoods)[number]);
-          router.push("/q");
-        }
+      const data = await res.json();
+      if (res.status === 200 && data.success && data.data.response) {
+        setMood(data.data.response as (typeof allowedMoods)[number]);
+        router.push("/q");
+      } else {
+        toast.error("Couldn't understand the mood.");
       }
+    } catch (err) {
+      toast.error("Something went wrong.");
+      console.error("Something went wrong.", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -108,9 +113,33 @@ export default function MoodInput() {
           <div className="absolute right-1.5 bottom-3">
             <button
               type="submit"
-              className="bg-[#d4a373] text-white p-1.5 flex items-center justify-center rounded-full text-sm hover:bg-[#bc8d62] transition cursor-pointer"
+              className="bg-[#d4a373] text-white p-1.5 flex items-center justify-center rounded-full text-sm hover:bg-[#bc8d62] transition cursor-pointer disabled:opacity-60"
+              disabled={loading}
             >
-              <ArrowUp size={18} />
+              {loading ? (
+                <svg
+                  className="animate-spin h-4 w-4 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                  ></path>
+                </svg>
+              ) : (
+                <ArrowUp size={18} />
+              )}
             </button>
           </div>
         )}

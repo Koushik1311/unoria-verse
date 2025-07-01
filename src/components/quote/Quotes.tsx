@@ -34,7 +34,12 @@ export default function Quotes() {
   useEffect(() => {
     const getQuotes = async () => {
       try {
-        const res = await fetch(`/api/quotes/${mood}`);
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const res = await fetch(`/api/quotes/${mood}`, {
+          headers: {
+            "x-timezone": timezone,
+          },
+        });
         if (res.status === 429) {
           router.push("/404");
           return;

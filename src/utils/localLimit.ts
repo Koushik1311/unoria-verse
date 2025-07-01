@@ -1,5 +1,7 @@
+import { DateTime } from "luxon";
+
 export function getRequestCountToday(): number {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = DateTime.now().toISODate();
   const record = localStorage.getItem("unoriaverse:requestCount");
 
   if (!record) return 0;
@@ -11,7 +13,7 @@ export function getRequestCountToday(): number {
 }
 
 export function incrementRequestCountToday(): void {
-  const today = new Date().toISOString().slice(0, 10);
+  const today = DateTime.now().toISODate();
   const count = getRequestCountToday() + 1;
   localStorage.setItem("unoriaverse:requestCount", `${today}:${count}`);
 }

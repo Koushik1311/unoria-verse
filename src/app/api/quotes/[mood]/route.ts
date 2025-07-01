@@ -8,8 +8,9 @@ export async function GET(
   { params }: { params: Promise<{ mood: string }> }
 ) {
   const ip = request.headers.get("x-forwarded-for") || "anonymous";
+  const timezone = request.headers.get("x-timezone") || "UTC";
 
-  const allowed = await isRequestAllowed(ip, 2);
+  const allowed = await isRequestAllowed(ip, 2, timezone);
   if (!allowed) {
     return NextResponse.json(
       { error: "You’ve used your quote limit for today." },

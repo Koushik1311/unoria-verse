@@ -1,5 +1,6 @@
 import MoodInput from "@/components/ui/MoodInput";
 import { quoteStyles } from "@/utils/quoteStyles";
+import Link from "next/link";
 
 export default function Home() {
   const style = quoteStyles.motivated;
@@ -14,6 +15,28 @@ export default function Home() {
         </h1>
 
         <MoodInput />
+
+        <div className="mt-6 text-xs text-center text-gray-500 space-x-4">
+          <Link href={"/about"} className="hover:underline">
+            Why I Made This
+          </Link>
+          <span>·</span>
+          <a
+            href="https://trapezoidal-hill-cab.notion.site/UnoriaVerse-Roadmap-Progress-222dde6b3f988020baa2c140622fb65f?source=copy_link"
+            className="hover:underline"
+            target="_blank"
+          >
+            Roadmap
+          </a>
+          <span>·</span>
+          <a
+            href="https://tally.so/r/3NxbKb"
+            className="hover:underline"
+            target="_blank"
+          >
+            Feedback
+          </a>
+        </div>
       </div>
     </main>
   );

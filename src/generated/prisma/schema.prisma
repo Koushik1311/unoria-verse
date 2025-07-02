@@ -20,7 +20,7 @@ model User {
 
 enum Mood {
   happy
-  sad
+  sad //Forgot sad
   angry
   anxious
   peaceful

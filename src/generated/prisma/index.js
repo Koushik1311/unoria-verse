@@ -198,16 +198,17 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://neondb_owner:npg_HF0uiLgVRh9e@ep-wandering-resonance-a4utphpy-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
+        "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String   @id @default(cuid())\n  clerkId   String   @unique\n  email     String   @unique\n  firstName String?\n  lastName  String?\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nenum Mood {\n  happy\n  sad\n  angry\n  anxious\n  peaceful\n  confused\n  inspired\n  lonely\n  motivated\n}\n\nenum Tone {\n  reflective // introspective, deep, emotional\n  uplifting // positive, encouraging\n  calming // soothing, peaceful\n  empowering // motivational, strong\n  playful // humorous, light-hearted\n  comforting // warm, reassuring\n  melancholic // nostalgic, bittersweet\n  romantic // affectionate, love-centered\n  neutral // factual, plain\n  spiritual // mindful, existential\n  energetic // high-energy, enthusiastic\n}\n\nmodel Quote {\n  id        String   @id @default(cuid())\n  content   String   @unique\n  mood      Mood\n  tone      Tone\n  author    Author?  @relation(fields: [authorId], references: [id])\n  authorId  String?\n  createdAt DateTime @default(now())\n\n  @@index([mood, tone])\n}\n\nmodel Author {\n  id     String  @id @default(cuid())\n  name   String  @unique\n  quotes Quote[]\n}\n",
-  "inlineSchemaHash": "d6c5d35e92747cac74a67c347949c442f4d6519aa1bfdf8345bcb1c703ef8498",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String   @id @default(cuid())\n  clerkId   String   @unique\n  email     String   @unique\n  firstName String?\n  lastName  String?\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nenum Mood {\n  happy\n  sad //Forgot sad\n  angry\n  anxious\n  peaceful\n  confused\n  inspired\n  lonely\n  motivated\n}\n\nenum Tone {\n  reflective // introspective, deep, emotional\n  uplifting // positive, encouraging\n  calming // soothing, peaceful\n  empowering // motivational, strong\n  playful // humorous, light-hearted\n  comforting // warm, reassuring\n  melancholic // nostalgic, bittersweet\n  romantic // affectionate, love-centered\n  neutral // factual, plain\n  spiritual // mindful, existential\n  energetic // high-energy, enthusiastic\n}\n\nmodel Quote {\n  id        String   @id @default(cuid())\n  content   String   @unique\n  mood      Mood\n  tone      Tone\n  author    Author?  @relation(fields: [authorId], references: [id])\n  authorId  String?\n  createdAt DateTime @default(now())\n\n  @@index([mood, tone])\n}\n\nmodel Author {\n  id     String  @id @default(cuid())\n  name   String  @unique\n  quotes Quote[]\n}\n",
+  "inlineSchemaHash": "fe870821519a5f16fbd2075b31b75545447ce88ca8f922a92f88b6c1da2f8859",
   "copyEngine": true
 }
 
